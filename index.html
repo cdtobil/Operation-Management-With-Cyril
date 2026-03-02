@@ -1,0 +1,1850 @@
+
+bash
+
+cat > /tmp/om_guide.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Operations Management – Complete Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0d1b2a;--paper:#faf9f6;--cream:#f0ece3;
+  --navy:#1a2e4a;--navy2:#243d5c;
+  --amber:#c8811a;--amber-light:#f5d9a0;--amber-pale:#fef9ee;
+  --teal:#1a6b5e;--teal-light:#c8ece7;
+  --rose:#9b2335;--rose-light:#f4d4d8;
+  --violet:#4a2d7a;--violet-light:#e4d9f5;
+  --slate:#4a5568;--border:#d8d3c8;
+  --radius:10px;--shadow:0 4px 20px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:15px}
+
+/* ── TOP NAV ── */
+.topnav{
+  position:sticky;top:0;z-index:200;
+  background:var(--navy);
+  display:flex;align-items:stretch;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.topnav .brand{
+  font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;
+  color:#fff;padding:.8rem 1.5rem;border-right:1px solid rgba(255,255,255,.1);
+  white-space:nowrap;display:flex;align-items:center;gap:.5rem;
+}
+.topnav .links{display:flex;flex-wrap:wrap;overflow:hidden}
+.topnav a{
+  color:rgba(255,255,255,.65);text-decoration:none;font-size:.78rem;font-weight:500;
+  padding:.8rem .9rem;border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;white-space:nowrap;
+}
+.topnav a:hover{color:#fff;border-color:var(--amber)}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 60%,#1e4a3a 100%);
+  color:#fff;padding:4rem 2rem 3.5rem;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-tag{display:inline-block;background:var(--amber);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .9rem;border-radius:20px;margin-bottom:1.2rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.15;margin-bottom:.8rem}
+.hero p{font-size:1.05rem;opacity:.8;max-width:620px;margin:0 auto 1.5rem}
+.hero-pills{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;padding:.3rem .85rem;border-radius:20px}
+
+/* ── LAYOUT ── */
+.page{max-width:1160px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+
+/* ── CHAPTER HEADERS ── */
+.chapter{
+  display:flex;align-items:center;gap:1rem;
+  margin:3.5rem 0 1.5rem;
+  padding:1.2rem 1.5rem;
+  background:var(--navy);color:#fff;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.chapter .ch-num{
+  font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;
+  color:var(--amber);line-height:1;flex-shrink:0;
+}
+.chapter .ch-text h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;line-height:1.2}
+.chapter .ch-text p{font-size:.83rem;opacity:.7;margin-top:.2rem}
+.chapter .ch-badge{margin-left:auto;background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:.72rem;font-weight:700;letter-spacing:.08em;padding:.3rem .8rem;border-radius:20px;white-space:nowrap;text-transform:uppercase}
+
+/* ── SECTION TITLES ── */
+.stitle{
+  font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);
+  margin:2rem 0 1rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.stitle::before{content:'';display:block;width:4px;height:1.4em;background:var(--amber);border-radius:2px;flex-shrink:0}
+
+/* ── CARDS ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1.2rem;box-shadow:var(--shadow)}
+.card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:.7rem}
+.card p,.card li{font-size:.9rem;color:var(--slate);line-height:1.7}
+.card ul,.card ol{padding-left:1.3rem}
+.card li{margin-bottom:.35rem}
+.card strong{color:var(--ink)}
+
+/* ── EXAMPLE BOXES ── */
+.ex{
+  background:var(--amber-pale);border:1px solid var(--amber-light);
+  border-left:4px solid var(--amber);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.2rem;margin-top:.9rem;
+}
+.ex .exl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:.4rem}
+.ex p,.ex li{font-size:.87rem;color:#5a3800}
+.ex ul,.ex ol{padding-left:1.1rem}
+.ex li{margin-bottom:.3rem}
+
+/* DEFINITION BOX */
+.defbox{
+  background:var(--teal-light);border-left:4px solid var(--teal);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.2rem;margin:1rem 0;
+}
+.defbox .defl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:.3rem}
+.defbox p{font-size:.9rem;color:#0d3a32;font-style:italic}
+
+/* KEY POINT BOX */
+.keybox{
+  background:var(--violet-light);border-left:4px solid var(--violet);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.2rem;margin:1rem 0;
+}
+.keybox .keyl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--violet);margin-bottom:.3rem}
+.keybox p,.keybox li{font-size:.87rem;color:#2a1050}
+.keybox ul{padding-left:1.1rem}
+
+/* WARNING BOX */
+.warnbox{
+  background:var(--rose-light);border-left:4px solid var(--rose);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.2rem;margin:1rem 0;
+}
+.warnbox .warnl{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--rose);margin-bottom:.3rem}
+.warnbox p,.warnbox li{font-size:.87rem;color:#3a0a10}
+.warnbox ul{padding-left:1.1rem}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.g5{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1rem}
+
+/* ── TABLES ── */
+.tbl{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:.5rem;border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.tbl th{background:var(--navy);color:#fff;padding:.75rem 1rem;text-align:left;font-weight:600}
+.tbl td{padding:.65rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl tr:last-child td{border-bottom:none}
+
+/* ── PROCESS TYPE CARDS ── */
+.pt-card{border-radius:var(--radius);padding:1.2rem;border:2px solid;position:relative;overflow:hidden}
+.pt-card::before{content:'';position:absolute;top:0;right:0;width:60px;height:60px;border-radius:0 0 0 60px;opacity:.15}
+.pt-project{background:#f5f0ff;border-color:#7c3aed}.pt-project::before{background:#7c3aed}.pt-project .pt-tag{background:#7c3aed;color:#fff}
+.pt-jobbing{background:#fff0f6;border-color:#db2777}.pt-jobbing::before{background:#db2777}.pt-jobbing .pt-tag{background:#db2777;color:#fff}
+.pt-batch{background:#fff7ed;border-color:#ea580c}.pt-batch::before{background:#ea580c}.pt-batch .pt-tag{background:#ea580c;color:#fff}
+.pt-mass{background:#f0fdf4;border-color:#059669}.pt-mass::before{background:#059669}.pt-mass .pt-tag{background:#059669;color:#fff}
+.pt-continuous{background:#eff6ff;border-color:#2563eb}.pt-continuous::before{background:#2563eb}.pt-continuous .pt-tag{background:#2563eb;color:#fff}
+.pt-card .pt-tag{display:inline-block;font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:20px;margin-bottom:.5rem;letter-spacing:.05em;text-transform:uppercase}
+.pt-card h4{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.pt-card p{font-size:.83rem;color:var(--slate)}
+.pt-card .pt-ex{font-size:.82rem;color:var(--slate);margin-top:.6rem;font-style:italic}
+
+/* ── LAYOUT CARDS ── */
+.lay-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;box-shadow:var(--shadow)}
+.lay-card .lay-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
+.lay-card .lay-icon{width:2.4rem;height:2.4rem;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.lay-card h4{font-size:1rem;font-weight:700;color:var(--navy)}
+.lay-card .adv{color:var(--teal);font-size:.82rem;font-weight:600;margin-top:.6rem;margin-bottom:.15rem}
+.lay-card .dis{color:var(--rose);font-size:.82rem;font-weight:600;margin-top:.4rem;margin-bottom:.15rem}
+.lay-card ul{padding-left:1.1rem}
+.lay-card li{font-size:.83rem;color:var(--slate);margin-bottom:.25rem}
+
+/* ── PERFORMANCE OBJ CARDS ── */
+.perf-card{border-radius:var(--radius);padding:1.2rem;text-align:left;border:1px solid var(--border);background:#fff;box-shadow:var(--shadow)}
+.perf-card .pi{font-size:2rem;margin-bottom:.5rem}
+.perf-card h4{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.perf-card .pd{font-size:.82rem;color:var(--slate);margin-bottom:.5rem}
+.perf-card .pex{font-size:.8rem;background:var(--cream);padding:.5rem .7rem;border-radius:6px;color:var(--ink)}
+
+/* ── FORMULA BOX ── */
+.fbox{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:var(--radius);padding:2rem;text-align:center;margin:1rem 0;box-shadow:var(--shadow)}
+.fbox .fm{font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;margin:.6rem 0;color:var(--amber-light)}
+.fbox p{font-size:.88rem;opacity:.8}
+
+/* ── FLOW DIAGRAM ── */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0;justify-content:center}
+.flow-box{background:var(--cream);border:2px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.82rem;font-weight:600;color:var(--navy);text-align:center;min-width:90px}
+.flow-box.highlight{background:var(--amber);border-color:var(--amber);color:#fff}
+.flow-box.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.flow-arrow{font-size:1.2rem;color:var(--amber);flex-shrink:0}
+
+/* ── BSC DIAGRAM ── */
+.bsc{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;gap:.7rem;margin-top:.8rem}
+.bsc-cell{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.9rem;font-size:.83rem}
+.bsc-cell h5{font-size:.82rem;font-weight:700;margin-bottom:.3rem}
+.bsc-cell p{font-size:.78rem;color:var(--slate)}
+.bsc-center{grid-column:2;grid-row:2;background:var(--navy);color:#fff;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;padding:1rem}
+.bsc-center h5{color:#fff;font-size:.9rem;margin-bottom:.2rem}
+.bsc-center p{color:rgba(255,255,255,.7);font-size:.76rem}
+.bsc-fin{background:#d4edda;border-color:#28a745}.bsc-fin h5{color:#155724}
+.bsc-cust{background:#d1ecf1;border-color:#17a2b8}.bsc-cust h5{color:#0c5460}
+.bsc-proc{background:#fff3cd;border-color:#ffc107}.bsc-proc h5{color:#856404}
+.bsc-learn{background:#e2d9f3;border-color:#6610f2}.bsc-learn h5{color:#360764}
+
+/* ── INFO TRANSFER DIAGRAM ── */
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.8rem}
+.info-dept{border-radius:8px;padding:.9rem;border:1px solid var(--border)}
+.info-dept h5{font-size:.82rem;font-weight:700;margin-bottom:.3rem}
+.info-dept ul{padding-left:1rem}
+.info-dept li{font-size:.77rem;color:var(--slate);margin-bottom:.2rem}
+
+/* ── 4VS VISUAL ── */
+.vs-bar{display:flex;align-items:center;gap:.8rem;margin:.4rem 0;font-size:.83rem}
+.vs-label{width:90px;font-weight:700;color:var(--navy);flex-shrink:0}
+.vs-track{flex:1;height:18px;background:var(--cream);border-radius:20px;border:1px solid var(--border);position:relative;overflow:hidden}
+.vs-fill{height:100%;border-radius:20px;opacity:.8;transition:width .5s}
+.vs-lo{font-size:.72rem;color:var(--slate);width:30px;text-align:right;flex-shrink:0}
+.vs-hi{font-size:.72rem;color:var(--slate);width:30px;flex-shrink:0}
+
+/* ── ACCORDION ── */
+details{margin-bottom:.6rem;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+summary{cursor:pointer;background:var(--cream);padding:.85rem 1.1rem;font-weight:600;font-size:.9rem;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;user-select:none}
+summary::after{content:'＋';font-size:1rem;color:var(--amber);font-weight:700}
+details[open]>summary{background:var(--navy);color:#fff}
+details[open]>summary::after{content:'－';color:var(--amber-light)}
+details .db{padding:1.1rem 1.2rem;font-size:.88rem;background:#fff}
+details .db p,.details .db li{font-size:.88rem;color:var(--slate)}
+details .db ul{padding-left:1.2rem}
+details .db li{margin-bottom:.3rem}
+
+/* ── SYMBOL GRID ── */
+.sym-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem;margin-top:.6rem}
+.sym-item{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.8rem;display:flex;align-items:center;gap:.7rem}
+.sym-icon{font-size:1.4rem;flex-shrink:0;width:2rem;text-align:center}
+.sym-item p{font-size:.8rem;color:var(--slate)}
+.sym-item strong{color:var(--navy);display:block;font-size:.83rem}
+
+/* ── CONTINUUM BAR ── */
+.continuum{display:flex;margin:1rem 0;border-radius:var(--radius);overflow:hidden;height:50px}
+.cont-seg{flex:1;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#fff;text-align:center;padding:.2rem}
+.cont-seg:nth-child(1){background:#7c3aed}
+.cont-seg:nth-child(2){background:#db2777}
+.cont-seg:nth-child(3){background:#ea580c}
+.cont-seg:nth-child(4){background:#059669}
+.cont-seg:nth-child(5){background:#2563eb}
+
+/* ── MATRIX ── */
+.matrix{display:grid;grid-template-columns:auto 1fr 1fr 1fr 1fr;gap:2px;margin:1rem 0;font-size:.78rem}
+.mx-head{background:var(--navy);color:#fff;padding:.5rem .6rem;font-weight:600;border-radius:3px}
+.mx-label{background:var(--cream);padding:.5rem .6rem;font-weight:600;color:var(--navy);border-radius:3px}
+.mx-cell{background:#fff;border:1px solid var(--border);padding:.5rem .6rem;border-radius:3px}
+.mx-cell.good{background:#d4edda;color:#155724}
+.mx-cell.bad{background:#f8d7da;color:#721c24}
+.mx-cell.med{background:#fff3cd;color:#856404}
+
+/* ── QUEUING CONFIGS ── */
+.q-config{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:.8rem}
+.q-config h5{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.q-visual{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:.5rem}
+.q-dot{width:14px;height:14px;border-radius:50%;background:var(--navy2);opacity:.7}
+.q-dot.active{background:var(--teal);opacity:1}
+.q-server{width:22px;height:28px;background:var(--amber);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem;font-weight:700}
+.q-arrow{color:var(--amber);font-size:.9rem;font-weight:700}
+.q-config p{font-size:.82rem;color:var(--slate)}
+
+/* ── TRIPLE BOTTOM LINE ── */
+.tbl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:.8rem}
+.tbl-card{border-radius:var(--radius);padding:1.2rem;text-align:center;border:2px solid}
+.tbl-eco{background:#e8f5e9;border-color:#2e7d32}.tbl-eco h4{color:#1b5e20}
+.tbl-soc{background:#e3f2fd;border-color:#1565c0}.tbl-soc h4{color:#0d47a1}
+.tbl-env{background:#f3e5f5;border-color:#6a1b9a}.tbl-env h4{color:#4a148c}
+.tbl-card .tbl-icon{font-size:2rem;margin-bottom:.5rem}
+.tbl-card h4{font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.tbl-card p{font-size:.82rem;opacity:.85}
+
+/* ── SCROLLTOP ── */
+#scrolltop{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--amber);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.25);display:none;align-items:center;justify-content:center;z-index:300;transition:opacity .3s}
+
+footer{background:var(--navy);color:rgba(255,255,255,.6);text-align:center;padding:2rem;font-size:.8rem}
+footer strong{color:rgba(255,255,255,.85)}
+
+@media(max-width:700px){
+  .topnav .links{max-height:0;overflow:hidden;width:100%}.topnav.open .links{max-height:300px}
+  .chapter{flex-direction:column;align-items:flex-start}.chapter .ch-badge{margin-left:0}
+  .bsc{grid-template-columns:1fr 1fr}.bsc-center{grid-column:1/3;grid-row:auto}
+  .info-grid{grid-template-columns:1fr 1fr}
+  .matrix{grid-template-columns:auto 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav" id="nav">
+  <div class="brand">📦 Operations Mgmt</div>
+  <div class="links">
+    <a href="#lec1">Lecture 1</a>
+    <a href="#what-is-om">OM Defined</a>
+    <a href="#ito">I-T-O Model</a>
+    <a href="#4vs">4 Vs</a>
+    <a href="#decisions">Decisions</a>
+    <a href="#perf5">Performance</a>
+    <a href="#triple">Triple Bottom Line</a>
+    <a href="#bsc">BSC</a>
+    <a href="#productivity">Productivity</a>
+    <a href="#lec2">Lecture 2</a>
+    <a href="#process-design">Process Design</a>
+    <a href="#process-types">Process Types</a>
+    <a href="#mapping">Process Mapping</a>
+    <a href="#layouts">Layouts</a>
+    <a href="#queuing">Queuing</a>
+    <a href="#revision">Revision</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-tag">Complete Course Study Guide</div>
+  <h1>Operations Management</h1>
+  <p>Everything from Lectures 1 &amp; 2 — with clear explanations, diagrams, and real-world examples for every concept.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">📘 Lecture 1: Intro to OM</span>
+    <span class="hero-pill">📗 Lecture 2: Process &amp; Layout</span>
+    <span class="hero-pill">✏️ Revision Q&amp;A</span>
+  </div>
+</header>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LECTURE 1 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="lec1" class="chapter">
+  <div class="ch-num">01</div>
+  <div class="ch-text">
+    <h2>Introduction to Operations Management</h2>
+    <p>Meaning, functions, scope, decisions, performance objectives &amp; productivity</p>
+  </div>
+  <div class="ch-badge">Lecture 1</div>
+</div>
+
+<!-- ── WHAT IS OM ── -->
+<div id="what-is-om" class="stitle">What is Operations Management?</div>
+
+<div class="defbox">
+  <div class="defl">Core Definition</div>
+  <p>"Operations management is the activity of managing the resources which are devoted to the production and delivery of products and services." — Slack et al.</p>
+</div>
+<div class="defbox">
+  <div class="defl">Alternative Definition</div>
+  <p>"The business function responsible for planning, coordinating, and controlling the resources needed to produce a company's products and services." — Wiley, 2005</p>
+</div>
+
+<div class="card">
+  <h3>Why is Operations Management Important?</h3>
+  <p>OM is not just a back-office function — it directly impacts a company's financial health and competitive position in four key ways:</p>
+  <div class="g2" style="margin-top:.9rem">
+    <div>
+      <div style="background:var(--teal-light);border-radius:8px;padding:1rem;margin-bottom:.8rem">
+        <strong style="color:var(--teal)">1. Reduces Costs</strong>
+        <p style="font-size:.85rem;margin-top:.3rem">By producing products and services efficiently, OM lowers the cost base. A manufacturer that wastes less material, uses energy efficiently, and keeps machinery running makes more profit per unit sold.</p>
+      </div>
+      <div style="background:var(--violet-light);border-radius:8px;padding:1rem">
+        <strong style="color:var(--violet)">3. Reduces Investment Needs</strong>
+        <p style="font-size:.85rem;margin-top:.3rem">By increasing the effective capacity of existing operations and finding innovative uses of physical resources, OM reduces how much new investment is needed to grow output.</p>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--amber-pale);border-radius:8px;padding:1rem;margin-bottom:.8rem">
+        <strong style="color:var(--amber)">2. Increases Revenue</strong>
+        <p style="font-size:.85rem;margin-top:.3rem">High quality and excellent service win and retain customers. Every complaint resolved, every order delivered on time, and every product without defects translates directly into repeat business and positive referrals.</p>
+      </div>
+      <div style="background:#f0fdf4;border-radius:8px;padding:1rem">
+        <strong style="color:var(--teal)">4. Enhances Innovation</strong>
+        <p style="font-size:.85rem;margin-top:.3rem">A strong operational base — skilled staff, efficient processes, deep technical knowledge — creates the foundation from which new products, services, and ways of working can emerge.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ex">
+    <div class="exl">Example — IKEA's Operations</div>
+    <p>IKEA demonstrates all four simultaneously: flat-pack design reduces shipping costs (cost), attractive products and good service drive footfall (revenue), large stores with efficient replenishment maximise throughput from existing assets (investment), and continuous review of operations keeps IKEA at the frontier of retail innovation (innovation).</p>
+  </div>
+</div>
+
+<!-- ── THREE BASIC FUNCTIONS ── -->
+<div class="stitle">The Three Core Business Functions</div>
+<div class="card">
+  <h3>Operations, Marketing &amp; Product/Service Development</h3>
+  <p>Every organisation — whether it sells sandwiches or software — relies on three interconnected functions. None can operate effectively in isolation.</p>
+  <div class="g3" style="margin-top:1rem">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:1rem">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">📣</div>
+      <strong style="color:#1e40af">Marketing</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Understands customer needs, runs promotional activities, conducts market research, and feeds demand information to operations.</p>
+      <p style="font-size:.8rem;margin-top:.4rem;font-style:italic;color:#3b4a6b">Asks: "What do customers want?"</p>
+    </div>
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:1rem">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🔬</div>
+      <strong style="color:#166534">Product/Service Development</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Designs new offerings. Must understand what operations can produce and what customers will value. Links market needs to operational capability.</p>
+      <p style="font-size:.8rem;margin-top:.4rem;font-style:italic;color:#1a4a2a">Asks: "What should we make?"</p>
+    </div>
+    <div style="background:var(--amber-pale);border:1px solid var(--amber-light);border-radius:8px;padding:1rem">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">⚙️</div>
+      <strong style="color:var(--amber)">Operations</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Produces and delivers. Designs processes, manages resources, controls quality, and creates the value that customers pay for.</p>
+      <p style="font-size:.8rem;margin-top:.4rem;font-style:italic;color:#5a3800">Asks: "How do we deliver it?"</p>
+    </div>
+  </div>
+  <div class="ex" style="margin-top:1rem">
+    <div class="exl">Example — Prêt a Manger</div>
+    <p><strong>Marketing:</strong> Runs promotions, surveys customers about desired new products. <strong>Product Dev:</strong> Designs the nutritional, mechanical, and aesthetic qualities of sandwiches and snacks. <strong>Operations:</strong> Manages the physical stores, in-store processes (chopping, assembling, serving), and the supply network that brings fresh ingredients every morning.</p>
+  </div>
+</div>
+
+<!-- INTERFUNCTIONAL RELATIONSHIPS -->
+<div class="card">
+  <h3>How Operations Connects to Every Department</h3>
+  <p>Operations does not just interact with marketing and product development — it is connected to <em>every</em> function in the business. Understanding these information flows is critical.</p>
+  <div class="info-grid" style="margin-top:.9rem">
+    <div class="info-dept" style="background:#fff7ed;border-color:var(--amber-light)">
+      <h5 style="color:var(--amber)">📣 Marketing</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Current operating capabilities</li><li>Inventory levels &amp; output rates</li><li>Capacity constraints</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>Customer demand data</li><li>Customer feedback</li><li>Need for new products</li></ul>
+    </div>
+    <div class="info-dept" style="background:#eff6ff;border-color:#bfdbfe">
+      <h5 style="color:#1e40af">💼 Finance</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Financial measures needed</li><li>Capital requirements</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>Capital investment plans</li><li>Budget approvals</li><li>Stockholder requirements</li></ul>
+    </div>
+    <div class="info-dept" style="background:#f0fdf4;border-color:#bbf7d0">
+      <h5 style="color:#166534">👥 Human Resources</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Labour requirements</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>Labour skills available</li><li>Labour costs</li><li>Recruitment &amp; training</li></ul>
+    </div>
+    <div class="info-dept" style="background:#fdf4ff;border-color:#e9d5ff">
+      <h5 style="color:var(--violet)">🖥️ IT / IS</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Technological capabilities</li><li>Information needs</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>Systems for planning &amp; control</li><li>Improvement support</li></ul>
+    </div>
+    <div class="info-dept" style="background:#fff1f2;border-color:#fecdd3">
+      <h5 style="color:var(--rose)">🔧 Engineering</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Design requirements</li><li>Technological trade-offs</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>New technology analysis</li><li>Product specs</li></ul>
+    </div>
+    <div class="info-dept" style="background:#fefce8;border-color:#fef08a">
+      <h5 style="color:#854d0e">📊 Accounting</h5>
+      <p style="font-size:.78rem;margin-bottom:.3rem"><strong>Receives from Operations:</strong></p>
+      <ul><li>Billing information</li><li>Process improvements</li></ul>
+      <p style="font-size:.78rem;margin:.3rem 0"><strong>Sends to Operations:</strong></p>
+      <ul><li>Performance measures</li><li>Financial analysis for decisions</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── ITO MODEL ── -->
+<div id="ito" class="stitle">The Input–Transformation–Output (I-T-O) Model</div>
+
+<div class="card">
+  <h3>The Universal Framework for All Operations</h3>
+  <p>Every operation — from a hospital to a hotel to a factory — can be understood using the same fundamental model. Inputs are transformed into outputs that add value for customers.</p>
+  <div class="flow" style="margin:1.5rem 0">
+    <div>
+      <div style="text-align:center;font-size:.72rem;font-weight:700;color:var(--slate);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em">Transformed Resources</div>
+      <div class="flow-box">Materials</div>
+      <div style="text-align:center;color:var(--slate);font-size:.8rem;padding:.2rem">+</div>
+      <div class="flow-box">Information</div>
+      <div style="text-align:center;color:var(--slate);font-size:.8rem;padding:.2rem">+</div>
+      <div class="flow-box">Customers</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div>
+      <div style="text-align:center;font-size:.72rem;font-weight:700;color:var(--slate);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em">Transforming Resources</div>
+      <div class="flow-box">Facilities</div>
+      <div style="text-align:center;color:var(--slate);font-size:.8rem;padding:.2rem">+</div>
+      <div class="flow-box">Staff</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box highlight" style="padding:1.5rem 1rem">TRANSFORMATION<br><small>Process</small></div>
+    <div class="flow-arrow">→</div>
+    <div>
+      <div style="text-align:center;font-size:.72rem;font-weight:700;color:var(--slate);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em">Outputs</div>
+      <div class="flow-box dark">Products &amp;<br>Services</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box" style="background:var(--teal-light);border-color:var(--teal)">Customers<br><small style="color:var(--teal)">Value Added</small></div>
+  </div>
+  <div class="keybox">
+    <div class="keyl">Key Distinction</div>
+    <p><strong>Transformed resources</strong> are what get changed — materials, information, or customers. <strong>Transforming resources</strong> are the means of transformation — facilities (buildings, machines) and staff (people with skills). Both types of input are essential.</p>
+  </div>
+  <div class="g3" style="margin-top:1rem">
+    <div class="ex" style="margin-top:0">
+      <div class="exl">🚗 Car Factory</div>
+      <p><strong>Transformed:</strong> Steel, components, sub-assemblies</p>
+      <p><strong>Transforming:</strong> Robots, welding equipment, trained assembly workers</p>
+      <p><strong>Output:</strong> Finished automobiles</p>
+    </div>
+    <div class="ex" style="margin-top:0">
+      <div class="exl">🥪 Prêt a Manger</div>
+      <p><strong>Transformed:</strong> Ingredients, packaging, hungry customers</p>
+      <p><strong>Transforming:</strong> Kitchen equipment, fittings, trained staff</p>
+      <p><strong>Output:</strong> Served and satisfied customers</p>
+    </div>
+    <div class="ex" style="margin-top:0">
+      <div class="exl">⛑️ Disaster Relief Charity</div>
+      <p><strong>Transformed:</strong> Donated supplies, information about needs</p>
+      <p><strong>Transforming:</strong> Logistics network, volunteer teams, partner organisations</p>
+      <p><strong>Output:</strong> Communities relieved of suffering</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── GOODS VS SERVICES ── -->
+<div class="stitle">Goods vs. Services &amp; The Output Spectrum</div>
+
+<div class="card">
+  <h3>Most Operations Produce a Mix of Goods and Services</h3>
+  <p>Operations don't exist at pure extremes — a restaurant produces physical food (goods) while also providing the dining experience (service). Understanding where your operation sits helps you manage it correctly.</p>
+  <div style="background:linear-gradient(90deg,#e8f5e9 0%,#fff9c4 50%,#fce4ec 100%);border-radius:8px;padding:1rem;margin:1rem 0;text-align:center;font-size:.82rem;font-weight:600;color:var(--ink)">
+    ← Pure Goods &nbsp;&nbsp;&nbsp; Crude Oil · Aluminium Smelting · Machine Tool Maker · Restaurant · Computer Services · Management Consultancy · Psychotherapy &nbsp;&nbsp;&nbsp; Pure Services →
+  </div>
+  <table class="tbl">
+    <tr><th>Characteristic</th><th>Pure Goods (e.g. a manufactured bolt)</th><th>Pure Services (e.g. a haircut)</th></tr>
+    <tr><td>Tangibility</td><td>Tangible — you can touch and see it</td><td>Intangible — no physical product</td></tr>
+    <tr><td>Storability</td><td>Can be inventoried; made before needed</td><td>Cannot be stored; must be consumed at point of production</td></tr>
+    <tr><td>Production timing</td><td>Production precedes consumption</td><td>Production and consumption happen simultaneously</td></tr>
+    <tr><td>Customer contact</td><td>Low — customer usually not present</td><td>High — customer is central to delivery</td></tr>
+    <tr><td>Transportability</td><td>Can be shipped worldwide</td><td>Usually cannot be transported</td></tr>
+    <tr><td>Quality assessment</td><td>Defects visible and measurable</td><td>Difficult — depends on perception</td></tr>
+    <tr><td>Labour intensity</td><td>Capital intensive (machines)</td><td>Labour intensive (people)</td></tr>
+    <tr><td>Response time</td><td>Longer response acceptable</td><td>Short response expected</td></tr>
+  </table>
+  <div class="keybox" style="margin-top:1rem">
+    <div class="keyl">Despite Differences — Both Share These Challenges</div>
+    <ul>
+      <li>Both must forecast demand accurately</li>
+      <li>Both face capacity, layout, and location decisions</li>
+      <li>Both must manage quality and productivity</li>
+      <li>Both have customers and suppliers to manage</li>
+      <li>Both require scheduling and staffing decisions</li>
+      <li>Both use technology to improve performance</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── 4 Vs ── -->
+<div id="4vs" class="stitle">The 4 Vs Framework — Profiling Operations</div>
+
+<div class="card">
+  <h3>Volume, Variety, Variation and Visibility</h3>
+  <p>The four Vs help describe any operation and reveal its strategic implications. Understanding your own 4 Vs profile — and whether it is where you <em>want</em> to be — is a key management skill.</p>
+  <div class="g2" style="margin-top:1rem">
+    <div>
+      <div style="margin-bottom:1.2rem">
+        <strong style="color:var(--navy);font-size:.95rem">📊 Volume</strong>
+        <p style="font-size:.85rem;color:var(--slate);margin:.4rem 0">How many units are produced? High volume = high repeatability = specialisation possible = lower unit cost via economies of scale.</p>
+        <div class="vs-bar"><span class="vs-label">Low Volume</span><div class="vs-track"><div class="vs-fill" style="width:20%;background:var(--rose)"></div></div><span class="vs-hi">High Volume</span></div>
+        <div class="ex" style="margin-top:.5rem"><div class="exl">Low</div><p>A bespoke jeweller crafts 3 rings per week.</p></div>
+        <div class="ex" style="margin-top:.4rem"><div class="exl">High</div><p>Nestlé produces millions of KitKat bars per day — same process, same equipment, every time.</p></div>
+      </div>
+      <div>
+        <strong style="color:var(--navy);font-size:.95rem">🎨 Variety</strong>
+        <p style="font-size:.85rem;color:var(--slate);margin:.4rem 0">How many different products or services are offered? High variety means each customer/product may need a different process, raising cost but improving satisfaction for complex needs.</p>
+        <div class="ex" style="margin-top:.5rem"><div class="exl">Low Variety</div><p>A budget airline — one class, no meals, no reserved seats. Simple, cheap.</p></div>
+        <div class="ex" style="margin-top:.4rem"><div class="exl">High Variety</div><p>A private bank tailors financial packages to each client's unique wealth profile.</p></div>
+      </div>
+    </div>
+    <div>
+      <div style="margin-bottom:1.2rem">
+        <strong style="color:var(--navy);font-size:.95rem">📈 Variation in Demand</strong>
+        <p style="font-size:.85rem;color:var(--slate);margin:.4rem 0">How much does demand fluctuate? High variation requires flexible capacity — operations must be able to scale up and down, which is costly and complex to manage.</p>
+        <div class="ex" style="margin-top:.5rem"><div class="exl">Low Variation</div><p>An electricity grid — demand is fairly predictable, allowing very high resource utilisation and low unit cost.</p></div>
+        <div class="ex" style="margin-top:.4rem"><div class="exl">High Variation</div><p>A tax accounting firm: swamped in January–April, near-empty in August. Must hire temps, lose efficiency.</p></div>
+      </div>
+      <div>
+        <strong style="color:var(--navy);font-size:.95rem">👁️ Visibility (Customer Contact)</strong>
+        <p style="font-size:.85rem;color:var(--slate);margin:.4rem 0">How much of the operation does the customer see and experience directly? High visibility demands customer-contact skills and quick response; it cannot be "industrialised" easily.</p>
+        <div class="ex" style="margin-top:.5rem"><div class="exl">Low Visibility</div><p>An Amazon fulfilment centre — customers never see picking, packing, or logistics operations.</p></div>
+        <div class="ex" style="margin-top:.4rem"><div class="exl">High Visibility</div><p>A GP surgery — patient is present throughout; every interaction must be patient-centred and empathetic.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="warnbox" style="margin-top:1rem">
+    <div class="warnl">Strategic Implication</div>
+    <p>Moving towards the <strong>high-volume / low-variety</strong> end gives lower unit costs but less flexibility. Moving towards <strong>low-volume / high-variety</strong> gives responsiveness but higher costs. Operations managers must consciously choose — and manage — their position on each V.</p>
+  </div>
+  <div class="ex">
+    <div class="exl">Formule 1 Hotel vs Agua Safari Hotel</div>
+    <p><strong>Formule 1 (budget chain):</strong> High volume, Low variety, Low variation, Low visibility → standardised rooms, automated check-in, predictable demand, low staff contact → very low unit cost per room night.</p>
+    <p style="margin-top:.5rem"><strong>Agua Safari (luxury resort):</strong> Low volume, High variety, High variation (seasonal peaks), High visibility → bespoke experiences, personal butlers, unpredictable bookings → very high unit cost, but premium pricing justifies it.</p>
+  </div>
+</div>
+
+<!-- A TYPOLOGY OF OPERATIONS -->
+<div class="card">
+  <h3>How the 4 Vs Affect Operations Characteristics</h3>
+  <table class="tbl">
+    <tr><th>Dimension</th><th>High End →</th><th>Low End →</th><th>Key Implication</th></tr>
+    <tr><td><strong>Volume</strong></td><td>High repeatability, specialisation possible, capital-intensive</td><td>Low repetition, each staff member does more of the job, less systemisation</td><td>High volume = lower unit cost</td></tr>
+    <tr><td><strong>Variety</strong></td><td>Flexible, complex, matches individual customer needs</td><td>Well-defined, routine, standardised</td><td>High variety = higher unit cost</td></tr>
+    <tr><td><strong>Variation</strong></td><td>Needs flexible capacity, anticipation, in touch with demand</td><td>Stable, routine, predictable, high utilisation</td><td>High variation = harder to manage, higher cost</td></tr>
+    <tr><td><strong>Visibility</strong></td><td>Customer contact skills essential, short waiting tolerance, satisfaction subjective</td><td>Time lag between production and consumption; centralisation possible</td><td>High visibility = cannot automate away from customers</td></tr>
+  </table>
+</div>
+
+<!-- ── OPERATIONS STRATEGY ── -->
+<div id="decisions" class="stitle">Operations Strategy</div>
+
+<div class="card">
+  <h3>What is Strategy in Operations?</h3>
+  <div class="defbox">
+    <div class="defl">Definition</div>
+    <p>"Strategy consists of competitive efforts and business approaches that managers employ to please customers, compete successfully and achieve organisational objectives." — Thompson &amp; Strickland, 2003</p>
+  </div>
+  <p style="margin-top:.8rem">Operations management has three strategic roles:</p>
+  <div class="g3" style="margin-top:.8rem">
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>1. Implementing Strategy</strong>
+      <p style="font-size:.83rem;color:var(--slate);margin-top:.3rem">Operations carries out what the corporate strategy decides. If the strategy is to compete on low cost, operations must deliver efficiency.</p>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>2. Supporting Strategy</strong>
+      <p style="font-size:.83rem;color:var(--slate);margin-top:.3rem">Operations develops capabilities that support the strategic position, e.g., building quality systems that support a premium brand strategy.</p>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>3. Driving Strategy</strong>
+      <p style="font-size:.83rem;color:var(--slate);margin-top:.3rem">Operations capabilities become so distinctive they <em>drive</em> strategy — e.g., Toyota's lean manufacturing became the basis of its global competitive advantage.</p>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Types of Operations Strategy</h3>
+  <div class="g2">
+    <div>
+      <ul>
+        <li><strong>New product development strategy</strong> — When and how to bring new products/services to market</li>
+        <li><strong>Vertical integration strategy</strong> — Whether to make components in-house or buy from suppliers</li>
+        <li><strong>Facilities strategy</strong> — Number, size, type, and location of facilities</li>
+        <li><strong>Technological strategy</strong> — Which process technologies to adopt</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><strong>Capacity adjustment strategy</strong> — How quickly and by how much to grow or shrink capacity</li>
+        <li><strong>Inventory strategy</strong> — What to stock, how much, and where</li>
+        <li><strong>Improvement strategy</strong> — Which improvement methods to use (lean, Six Sigma, etc.)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── OM DECISIONS ── -->
+<div class="card">
+  <h3>Strategic vs. Tactical OM Decisions</h3>
+  <p>Operations decisions exist at two levels. Strategic decisions create the framework; tactical decisions operate within it day to day.</p>
+  <div class="g2" style="margin-top:1rem">
+    <div style="background:#f0f4ff;border:2px solid #4a5fa8;border-radius:var(--radius);padding:1.2rem">
+      <strong style="color:#1e3a8a;font-size:1rem">STRATEGIC DECISIONS</strong>
+      <p style="font-size:.8rem;color:#3b4a6b;margin:.4rem 0">Broad in scope · Long-term · All encompassing</p>
+      <ul style="font-size:.85rem;color:var(--slate);padding-left:1.1rem;margin-top:.6rem">
+        <li>Product/Service design</li>
+        <li>Capacity planning (how much can we make?)</li>
+        <li>Facility location (where should we operate?)</li>
+        <li>Facility layout (how should we arrange space?)</li>
+        <li>Job design (how should work be structured?)</li>
+      </ul>
+      <div class="ex" style="margin-top:.8rem"><div class="exl">Example</div><p>"What unique features of our product make us competitive in the next 5 years?"</p></div>
+    </div>
+    <div style="background:#f0fdf4;border:2px solid #059669;border-radius:var(--radius);padding:1.2rem">
+      <strong style="color:#065f46;font-size:1rem">TACTICAL DECISIONS</strong>
+      <p style="font-size:.8rem;color:#3b4a6b;margin:.4rem 0">Narrow in scope · Short-term · Specific issues</p>
+      <ul style="font-size:.85rem;color:var(--slate);padding-left:1.1rem;margin-top:.6rem">
+        <li>Quality control (are we meeting standards?)</li>
+        <li>Demand forecasting (what will customers want?)</li>
+        <li>Supply chain management (who supplies us?)</li>
+        <li>Production planning (what do we make this week?)</li>
+        <li>Inventory control (how much to stock?)</li>
+        <li>Scheduling (who does what and when?)</li>
+      </ul>
+      <div class="ex" style="margin-top:.8rem"><div class="exl">Example</div><p>"Who will work the second shift tomorrow?"</p></div>
+    </div>
+  </div>
+  <div class="keybox" style="margin-top:1rem">
+    <div class="keyl">Five Major Decision Areas in Operations</div>
+    <p>Whether strategic or tactical, all OM decisions cluster around five themes: <strong>Process, Quality, Workforce, Inventory, and Capacity</strong>. Managers constantly make decisions in all five areas simultaneously.</p>
+  </div>
+</div>
+
+<!-- ── OM IS CHANGING ── -->
+<div class="card">
+  <h3>How the Business Environment is Changing OM</h3>
+  <div class="g2">
+    <div>
+      <p style="font-size:.85rem;font-weight:700;color:var(--rose);margin-bottom:.5rem">Business Environment Changes →</p>
+      <ul style="font-size:.85rem;color:var(--slate);padding-left:1.1rem">
+        <li>Increased cost-based competition</li>
+        <li>Higher quality expectations from customers</li>
+        <li>Demands for better, faster service</li>
+        <li>More choice and variety expected</li>
+        <li>Rapidly developing technologies</li>
+        <li>Frequent new product/service introduction</li>
+        <li>Increased ethical sensitivity</li>
+        <li>Environmental impacts more transparent</li>
+        <li>More legal regulation</li>
+        <li>Greater security awareness</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:.85rem;font-weight:700;color:var(--teal);margin-bottom:.5rem">→ Operations Responses</p>
+      <ul style="font-size:.85rem;color:var(--slate);padding-left:1.1rem">
+        <li>Globalisation of operations networking</li>
+        <li>Information-based technologies</li>
+        <li>Internet-based integration of operations activities</li>
+        <li>Supply chain management</li>
+        <li>Customer relationship management (CRM)</li>
+        <li>Flexible working patterns</li>
+        <li>Mass customisation</li>
+        <li>Fast time-to-market methods</li>
+        <li>Lean process design</li>
+        <li>Environmentally sensitive design</li>
+        <li>Supplier 'partnership' and development</li>
+        <li>Failure analysis &amp; business recovery planning</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── FIVE PERFORMANCE OBJECTIVES ── -->
+<div id="perf5" class="stitle">The Five Performance Objectives</div>
+
+<div class="card">
+  <h3>How Operations Competes</h3>
+  <p>All operations compete — whether externally against rivals or internally as a support function — on five fundamental dimensions. These are not equally important to all customers or all markets; the skill lies in understanding which matter most and excelling at those.</p>
+</div>
+
+<div class="g2">
+  <div class="perf-card">
+    <div class="pi">🎯</div>
+    <h4>1. Quality — "Doing things right"</h4>
+    <div class="pd">Producing products and services that conform to specification, are free from defects, and meet or exceed customer expectations. Quality affects both costs (fewer errors = less rework) and revenue (satisfied customers return).</div>
+    <div class="pex">
+      <strong>Steel Plant:</strong> % of products conforming to exact specification<br>
+      <strong>Mortgage Service:</strong> Accuracy of information; professionalism of staff<br>
+      <strong>Finance Function:</strong> Accuracy of reports; insightfulness of advice<br>
+      <strong>Restaurant:</strong> Consistently good food; no food safety incidents
+    </div>
+  </div>
+  <div class="perf-card">
+    <div class="pi">⚡</div>
+    <h4>2. Speed — "Doing things fast"</h4>
+    <div class="pd">Minimising the time between a customer requesting something and receiving it. Speed reduces in-process inventory, cuts throughput time, and directly impacts customer satisfaction (nobody likes waiting).</div>
+    <div class="pex">
+      <strong>Steel Plant:</strong> Lead time from enquiry to quotation; order to delivery<br>
+      <strong>Mortgage Service:</strong> Time for call centre to respond; fast loan decisions<br>
+      <strong>Finance Function:</strong> Responsiveness to other departments' queries<br>
+      <strong>Hospital A&amp;E:</strong> Time from arrival to first seen by clinician
+    </div>
+  </div>
+  <div class="perf-card">
+    <div class="pi">🔒</div>
+    <h4>3. Dependability — "Doing things on time"</h4>
+    <div class="pd">Keeping promises. Delivering what was promised, when it was promised, every time. Underpins customer trust — a dependable supplier becomes embedded in customers' own planning. Internally, dependability saves time and money by avoiding disruption and rescheduling.</div>
+    <div class="pex">
+      <strong>Steel Plant:</strong> % of deliveries "on time, in full"; customers kept informed<br>
+      <strong>Mortgage Service:</strong> Reliability of promised completion date<br>
+      <strong>Finance Function:</strong> Financial information available exactly when needed for meetings<br>
+      <strong>Delivery Company:</strong> Next-day guarantee; tracking accuracy
+    </div>
+  </div>
+  <div class="perf-card">
+    <div class="pi">🔄</div>
+    <h4>4. Flexibility — "Changing what you do"</h4>
+    <div class="pd">The ability to change operations — what you produce, how much, when, or at what speed — in response to changing circumstances. There are four types: product/service flexibility, mix flexibility, volume flexibility, and delivery flexibility.</div>
+    <div class="pex">
+      <strong>Steel Plant:</strong> Range of sizes, gauges, coatings possible; ability to change timing<br>
+      <strong>Mortgage Service:</strong> Customise loan terms; cope with changes in customer circumstances<br>
+      <strong>Finance Function:</strong> Ability to adjust volume of work to meet tight deadlines<br>
+      <strong>Netflix:</strong> Can scale streaming capacity instantly during unexpected demand spikes
+    </div>
+  </div>
+  <div class="perf-card">
+    <div class="pi">💰</div>
+    <h4>5. Cost — "Doing things cheaply"</h4>
+    <div class="pd">Minimising the cost of producing each unit of output. For companies competing on price, low cost is the primary objective. Even for premium providers, lower costs mean higher margins. Improving the other four objectives also tends to reduce cost (fewer defects = less scrap; more speed = less inventory).</div>
+    <div class="pex">
+      <strong>Steel Plant:</strong> Price of products; discounts available; payment terms<br>
+      <strong>Mortgage Service:</strong> Interest rate charged; arrangement fees<br>
+      <strong>Finance Function:</strong> Cost per transaction; headcount &amp; facilities cost<br>
+      <strong>Ryanair:</strong> Strips all non-essential costs to offer market-lowest fares
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:1.2rem">
+  <h3>Factors That Influence Which Objectives Matter Most</h3>
+  <div class="g3">
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Customer Influence</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)"><strong>Order-winning factors</strong> directly win orders — customers choose you because of them (e.g. lowest price, fastest delivery). <strong>Qualifying factors</strong> are minimum standards — you must meet them to be considered, but excelling doesn't win extra business (e.g. basic quality compliance).</p>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Competitor Behaviour</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">If a competitor dramatically improves their speed or cuts prices, you must respond or lose market share. Operations must continuously monitor competitive moves and adjust its own performance priorities accordingly.</p>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Product Life Cycle Stage</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)"><strong>Introduction:</strong> Flexibility &amp; quality matter most. <strong>Growth:</strong> Speed and quality. <strong>Maturity:</strong> Dependability and cost. <strong>Decline:</strong> Cost becomes dominant as price wars intensify.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TRIPLE BOTTOM LINE -->
+<div id="triple" class="stitle">The Triple Bottom Line</div>
+
+<div class="card">
+  <h3>Beyond Profit: Operations and Sustainability</h3>
+  <p>Modern operations management is accountable not just to shareholders but to society and the planet. The Triple Bottom Line framework measures success across three dimensions:</p>
+  <div class="tbl-grid">
+    <div class="tbl-card tbl-eco">
+      <div class="tbl-icon">💰</div>
+      <h4>Economic Bottom Line</h4>
+      <p>Traditional profit maximisation. Generating returns for shareholders and ensuring the business is financially sustainable.</p>
+      <div class="ex" style="margin-top:.6rem"><p>Measured by: profit margin, ROI, earnings per share, revenue growth</p></div>
+    </div>
+    <div class="tbl-card tbl-soc">
+      <div class="tbl-icon">🤝</div>
+      <h4>Social Bottom Line</h4>
+      <p>How the business impacts communities, employees, and society. Balancing profit with ethical responsibility — fair wages, safe working conditions, community investment.</p>
+      <div class="ex" style="margin-top:.6rem"><p>Measured by: employee satisfaction, community investment, fair trade compliance, labour standards in supply chain</p></div>
+    </div>
+    <div class="tbl-card tbl-env">
+      <div class="tbl-icon">🌿</div>
+      <h4>Environmental Bottom Line</h4>
+      <p>Minimising the ecological impact of operations — carbon emissions, water usage, waste, toxic materials, end-of-life product management.</p>
+      <div class="ex" style="margin-top:.6rem"><p>Measured by: carbon footprint, water usage, waste sent to landfill, energy consumption per unit, recyclability of products</p></div>
+    </div>
+  </div>
+  <div class="ex" style="margin-top:.9rem">
+    <div class="exl">Example — Unilever</div>
+    <p>Unilever's Sustainable Living Plan commits to: halving environmental footprint (environmental), improving wellbeing of 1 billion people (social), while doubling the business (economic). Their operations must deliver all three simultaneously.</p>
+  </div>
+</div>
+
+<!-- BSC -->
+<div id="bsc" class="stitle">Operations Strategy and the Balanced Scorecard (BSC)</div>
+
+<div class="card">
+  <h3>Linking Vision &amp; Strategy to Operations Performance</h3>
+  <p>The Balanced Scorecard (Kaplan &amp; Norton) translates an organisation's vision and strategy into a comprehensive set of performance measures across four perspectives. Operations contributes to — and is measured in — all four.</p>
+  <div class="bsc">
+    <div></div>
+    <div class="bsc-cell bsc-fin">
+      <h5>💰 Financial</h5>
+      <p>"To succeed financially, how should we appear to shareholders?"</p>
+      <p style="margin-top:.3rem;font-size:.76rem"><em>E.g. reduce unit cost by 10%, increase ROI</em></p>
+    </div>
+    <div></div>
+    <div class="bsc-cell bsc-cust">
+      <h5>👥 Customer</h5>
+      <p>"To achieve our vision, how should we appear to customers?"</p>
+      <p style="margin-top:.3rem;font-size:.76rem"><em>E.g. on-time delivery rate, quality score, response time</em></p>
+    </div>
+    <div class="bsc-center">
+      <h5>VISION &amp;<br>STRATEGY</h5>
+      <p>The core of the BSC</p>
+    </div>
+    <div class="bsc-cell bsc-proc">
+      <h5>⚙️ Internal Processes</h5>
+      <p>"To satisfy customers, what business processes must we excel at?"</p>
+      <p style="margin-top:.3rem;font-size:.76rem"><em>E.g. cycle time, defect rate, process yield</em></p>
+    </div>
+    <div></div>
+    <div class="bsc-cell bsc-learn">
+      <h5>📚 Learning &amp; Growth</h5>
+      <p>"To sustain ability to change, how will we learn and improve?"</p>
+      <p style="margin-top:.3rem;font-size:.76rem"><em>E.g. employee skills, innovation rate, IT capability</em></p>
+    </div>
+    <div></div>
+  </div>
+  <div class="keybox" style="margin-top:1rem">
+    <div class="keyl">Why the BSC matters to Operations Managers</div>
+    <p>The BSC prevents "financial tunnel vision." An operation that only tracks profit might cut training (harming learning &amp; growth), delay maintenance (harming internal processes), and miss delivery targets (harming customers) — all to hit short-term financial numbers that lead to long-term failure. The BSC forces a holistic view.</p>
+  </div>
+</div>
+
+<!-- PRODUCTIVITY -->
+<div id="productivity" class="stitle">Productivity in Operations</div>
+
+<div class="fbox">
+  <p>Productivity is the fundamental measure of operational efficiency:</p>
+  <div class="fm">Productivity (P) = Outputs ÷ Inputs</div>
+  <p>A higher ratio means getting more out of the same (or less) input — the core goal of operations improvement</p>
+</div>
+
+<div class="card">
+  <h3>Types of Productivity Measurement</h3>
+  <div class="g3">
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+      <strong>Single-Factor Productivity</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Measures output against one specific input.</p>
+      <div class="ex" style="margin-top:.5rem"><div class="exl">Labour Productivity</div><p>Factory makes 600 units with 10 workers = 60 units per worker. After a new layout redesign: 900 units with same 10 workers = 90 units per worker → 50% productivity gain.</p></div>
+    </div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+      <strong>Multi-Factor Productivity</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Measures output against multiple combined inputs.</p>
+      <div class="ex" style="margin-top:.5rem"><div class="exl">Example</div><p>A call centre tracks calls handled per GH₵ of total cost (wages + technology + rent). This captures trade-offs — e.g. investing in better software raises costs but also raises calls handled.</p></div>
+    </div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem">
+      <strong>Total Factor Productivity</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Measures all outputs against all inputs — the most comprehensive view.</p>
+      <div class="ex" style="margin-top:.5rem"><div class="exl">Example</div><p>An airline tracks total revenue passengers flown ÷ total operating costs. Improvements in fuel efficiency, routing, or aircraft utilisation all show up here.</p></div>
+    </div>
+  </div>
+  <div class="stitle" style="font-size:1rem;margin-top:1.2rem">Ways to Improve Productivity</div>
+  <div class="g2">
+    <ul style="font-size:.88rem;padding-left:1.2rem">
+      <li><strong>Lean techniques:</strong> Eliminate waste (overproduction, waiting, unnecessary transport, defects, over-processing, excess inventory, unused talent)</li>
+      <li><strong>Process redesign:</strong> Restructure tasks to reduce steps and rework</li>
+      <li><strong>Technology investment:</strong> Automate repetitive tasks to raise output without proportional increase in labour cost</li>
+    </ul>
+    <ul style="font-size:.88rem;padding-left:1.2rem">
+      <li><strong>Better scheduling:</strong> Match staffing to demand so idle time is minimised</li>
+      <li><strong>Staff training:</strong> Skilled workers make fewer errors and work faster</li>
+      <li><strong>Capacity management:</strong> Run closer to full capacity to spread fixed costs over more units</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LECTURE 2 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="lec2" class="chapter">
+  <div class="ch-num">02</div>
+  <div class="ch-text">
+    <h2>Process Selection &amp; Facility Layout</h2>
+    <p>Process design, types, mapping, blueprinting, layout, and queuing</p>
+  </div>
+  <div class="ch-badge">Lecture 2</div>
+</div>
+
+<!-- PROCESS DESIGN INTRO -->
+<div id="process-design" class="stitle">Introduction to Process Design</div>
+
+<div class="card">
+  <h3>All Operations Managers are Designers</h3>
+  <p>Design is not just for product engineers. Operations managers design <em>processes</em> — the sequences, resources, and arrangements that create and deliver products and services.</p>
+  <div class="defbox">
+    <div class="defl">Process Design Defined</div>
+    <p>"The process of satisfying people's requirements through the shaping or configuring of products, services, and processes" — including the arrangement of processes, technology, and people that constitute an operation.</p>
+  </div>
+  <div class="g2" style="margin-top:.9rem">
+    <div>
+      <strong style="color:var(--navy)">Process Design Involves:</strong>
+      <ul style="font-size:.85rem;padding-left:1.1rem;margin-top:.5rem;color:var(--slate)">
+        <li>Envisaging the general shape and intention before defining details</li>
+        <li>Starting with design objectives as the anchor point</li>
+        <li>Analysing volume &amp; variety — the key determinants of process type</li>
+        <li>Ensuring the process fulfils its objectives effectively and efficiently</li>
+      </ul>
+    </div>
+    <div class="ex" style="margin-top:0">
+      <div class="exl">Heart transplant vs. flu vaccination</div>
+      <p><strong>Heart transplant:</strong> One patient, unique surgery, multiple specialist surgeons, hours of operating, extensive post-op care. Process is completely customised.</p>
+      <p style="margin-top:.4rem"><strong>Flu vaccination programme:</strong> Thousands of patients, same vaccine, same process, nurses trained in one specific task. Process is fully standardised. Same "product" (immunisation), completely different process.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT AND PROCESS INTERRELATED -->
+<div class="card">
+  <h3>Product/Service Design and Process Design are Interrelated</h3>
+  <div class="g2">
+    <div>
+      <div style="background:var(--teal-light);border-radius:8px;padding:1rem;margin-bottom:.8rem">
+        <strong style="color:var(--teal)">Products should be designed so they CAN be efficiently produced</strong>
+        <p style="font-size:.83rem;margin-top:.3rem">If a product designer creates something that is impossible to make at scale, the operation will be slow and costly. "Design for manufacture" principles ensure producibility.</p>
+      </div>
+      <div style="background:var(--amber-pale);border-radius:8px;padding:1rem">
+        <strong style="color:var(--amber)">Processes should be designed so they CAN produce all likely future products</strong>
+        <p style="font-size:.83rem;margin-top:.3rem">A process locked into today's products may be obsolete when the product range changes. Future flexibility must be designed in from the start.</p>
+      </div>
+    </div>
+    <div class="ex" style="margin-top:0">
+      <div class="exl">Apple iPhone Example</div>
+      <p>Apple's product designers want slim, seamless bodies with no visible screws. This directly constrains the assembly process — robots must be precise, components custom-designed, and assembly cells configured for delicate handling.</p>
+      <p style="margin-top:.5rem">Conversely, Apple's operations team designed Foxconn's factories knowing that annual iPhone iterations would require rapid reconfiguration — so flexibility was built into the process design, not just the product.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ENVIRONMENTALLY SENSITIVE DESIGN -->
+<div class="card">
+  <h3>Environmentally Sensitive Design</h3>
+  <p>Both product and process designers must account for environmental ("green") issues throughout the product/service lifecycle:</p>
+  <div class="g2" style="margin-top:.8rem">
+    <ul style="font-size:.88rem;padding-left:1.2rem;color:var(--slate)">
+      <li><strong>Sources of inputs:</strong> Where do raw materials come from? Are they ethically and sustainably sourced?</li>
+      <li><strong>Energy consumption:</strong> How much energy does the process use? Can it be reduced or from renewable sources?</li>
+      <li><strong>Waste generation:</strong> What waste materials are created during manufacturing? Can they be reduced or recycled?</li>
+    </ul>
+    <ul style="font-size:.88rem;padding-left:1.2rem;color:var(--slate)">
+      <li><strong>Product life:</strong> How long does the product last? Longer life = less replacement = less waste.</li>
+      <li><strong>End-of-life:</strong> Can the product be disassembled and recycled? Are toxic materials used?</li>
+      <li><strong>Toxic materials:</strong> Protecting employees and the public from immediate and long-term harm.</li>
+    </ul>
+  </div>
+  <div class="ex">
+    <div class="exl">Example — Patagonia</div>
+    <p>Patagonia designs products to last decades (product life), uses recycled polyester from plastic bottles (sourcing), runs a "Worn Wear" repair programme (end-of-life), and uses water-based dyes in processes (waste/toxic). All are process design decisions with environmental intent.</p>
+  </div>
+</div>
+
+<!-- PROCESS DESIGN OBJECTIVES -->
+<div class="card">
+  <h3>Specific Process Design Objectives</h3>
+  <p>Process designers must consider four key operational measures when configuring a process:</p>
+  <div class="g2" style="margin-top:.8rem">
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Throughput Rate (Flow Rate)</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">The rate at which units emerge from the process — units per hour, patients per day, etc. This must match customer demand.</p>
+      <div class="ex" style="margin-top:.4rem"><p>A passport office processes 200 applications/day. Demand is 250/day → queue builds. Process redesign needed to raise throughput rate.</p></div>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Throughput Time</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">The average elapsed time from when inputs enter the process to when they leave as outputs. Customers want this to be short; operations want it short too (less in-process inventory).</p>
+      <div class="ex" style="margin-top:.4rem"><p>In a fast-food restaurant, throughput time = time from order to food handed over. Target: under 3 minutes. Exceeding this → customer dissatisfaction.</p></div>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Work-in-Process (WIP) Inventory</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">The number of units inside the process at any one time (average over a period). High WIP means things are waiting — wasted time, space, and working capital.</p>
+      <div class="ex" style="margin-top:.4rem"><p>A hospital's A&amp;E with 60 patients "in the system" (some waiting for doctors, some for beds, some for results) = high WIP = poor patient experience &amp; high cost.</p></div>
+    </div>
+    <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+      <strong>Resource Utilisation</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">The proportion of available time that resources (people, machines, space) are performing useful work. Higher utilisation = lower unit cost, but 100% utilisation = no flexibility buffer.</p>
+      <div class="ex" style="margin-top:.4rem"><p>An MRI scanner costing £1M/year running at 50% utilisation costs £2 per minute of actual scanning. At 80% utilisation, cost drops to £1.25 per minute — significant for NHS budgets.</p></div>
+    </div>
+  </div>
+  <div style="margin-top:1rem">
+    <table class="tbl">
+      <tr><th>Performance Objective</th><th>What Good Process Design Achieves</th><th>Benefit</th></tr>
+      <tr><td>Quality</td><td>Error-free processing; right resources for each task</td><td>Products on-spec; less rework and recycling</td></tr>
+      <tr><td>Speed</td><td>Minimum throughput time; output rate matches demand</td><td>Short customer waiting; low WIP inventory</td></tr>
+      <tr><td>Dependability</td><td>Reliable process resources; predictable output timing</td><td>On-time deliveries; less disruption &amp; rescheduling</td></tr>
+      <tr><td>Flexibility</td><td>Resources with wide capability; easy state changes</td><td>Handle unexpected events; low-cost product changes</td></tr>
+      <tr><td>Cost</td><td>Capacity matches demand; eliminate all process waste</td><td>Low processing costs, low resource and inventory costs</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- PROCESS TYPES -->
+<div id="process-types" class="stitle">Process Types</div>
+
+<div class="card">
+  <h3>The Volume–Variety Continuum</h3>
+  <p>The volume of output and the variety of products/services are inversely related in most operations. As volume rises, variety typically falls. This continuum determines the appropriate process type.</p>
+  <div class="continuum">
+    <div class="cont-seg">PROJECT<br>Low Vol / High Var</div>
+    <div class="cont-seg">JOBBING<br>Low Vol / High Var</div>
+    <div class="cont-seg">BATCH<br>Med Vol / Med Var</div>
+    <div class="cont-seg">MASS<br>High Vol / Low Var</div>
+    <div class="cont-seg">CONTINUOUS<br>Very High / Single</div>
+  </div>
+  <p style="font-size:.82rem;color:var(--slate);text-align:center;margin-top:.4rem">← More customised, higher unit cost &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; More standardised, lower unit cost →</p>
+</div>
+
+<div class="g2" style="margin-bottom:1.2rem">
+  <div class="pt-card pt-project">
+    <span class="pt-tag">Project</span>
+    <h4>Project Processes</h4>
+    <p>One-off, complex, large-scale outputs with high work content. Defined start and finish — with time, quality, and cost objectives. Many different skills must be coordinated simultaneously. Every "product" is unique and specially made.</p>
+    <div class="ex" style="margin-top:.7rem">
+      <div class="exl">Real Examples</div>
+      <ul>
+        <li>🏗️ Building the Accra Metro rail system</li>
+        <li>🏥 Performing an organ transplant</li>
+        <li>🎬 Producing a feature film</li>
+        <li>🚀 Launching a space satellite</li>
+        <li>🖥️ Implementing an ERP system in a company</li>
+      </ul>
+    </div>
+    <p class="pt-ex">Key characteristics: very high unit cost; each is a one-off; no repetition; complex scheduling of diverse specialists</p>
+  </div>
+  <div class="pt-card pt-jobbing">
+    <span class="pt-tag">Jobbing</span>
+    <h4>Jobbing Processes</h4>
+    <p>Very small quantities — "one-offs" or just a few. Every output is highly customised. Skill requirements are broad — the skilled worker or team typically completes the whole product. Low volume, high variety.</p>
+    <div class="ex" style="margin-top:.7rem">
+      <div class="exl">Real Examples</div>
+      <ul>
+        <li>✂️ Made-to-measure tailor crafting a wedding suit</li>
+        <li>🔧 Precision engineer building a prototype component</li>
+        <li>🛠️ Specialist toolmaker fabricating a custom jig</li>
+        <li>🎨 Artist commissioned for a unique sculpture</li>
+        <li>🖨️ Small print shop producing a one-off bespoke booklet</li>
+      </ul>
+    </div>
+    <p class="pt-ex">Key characteristics: high unit cost; highly skilled generalist workers; low systemisation; no repeatability</p>
+  </div>
+</div>
+<div class="g2" style="margin-bottom:1.2rem">
+  <div class="pt-card pt-batch">
+    <span class="pt-tag">Batch</span>
+    <h4>Batch Processes</h4>
+    <p>Higher volumes and lower variety than jobbing. Products are standard with repeating demand, but different batches can be produced. Specialised, narrower skills. Set-ups (changeovers) required between batches. This is the most common manufacturing process type.</p>
+    <div class="ex" style="margin-top:.7rem">
+      <div class="exl">Real Examples</div>
+      <ul>
+        <li>🍞 Bakery making batches of sourdough, then switching to croissants</li>
+        <li>🖨️ Commercial printer running 1,000 brochures, then reconfiguring for posters</li>
+        <li>📚 University: each course/class is a "batch" of students through a similar process</li>
+        <li>💊 Pharmaceutical company making batches of paracetamol tablets</li>
+        <li>👗 Clothing manufacturer producing seasonal collections</li>
+      </ul>
+    </div>
+    <p class="pt-ex">Key characteristics: medium unit cost; changeover time between batches is a key efficiency lever (SMED — Single Minute Exchange of Die)</p>
+  </div>
+  <div class="pt-card pt-mass">
+    <span class="pt-tag">Mass</span>
+    <h4>Mass (Line) Processes</h4>
+    <p>Higher volumes than batch with lower variety. Products are standard, repeat "runners." No significant set-ups — or instantaneous ones. Workers perform narrow, specialised tasks repeatedly. Flow is continuous through the line.</p>
+    <div class="ex" style="margin-top:.7rem">
+      <div class="exl">Real Examples</div>
+      <ul>
+        <li>🚗 Toyota assembly line — same car model, millions per year</li>
+        <li>🍔 McDonald's kitchen — same burgers made the same way at every location</li>
+        <li>🥤 Coca-Cola bottling plant</li>
+        <li>📱 Foxconn iPhone assembly lines</li>
+        <li>📦 Amazon fulfilment centre packing line</li>
+      </ul>
+    </div>
+    <p class="pt-ex">Key characteristics: low unit cost; repetitive work; high capital investment; any single failure halts the whole line (bottleneck management critical)</p>
+  </div>
+</div>
+
+<div class="pt-card pt-continuous" style="margin-bottom:1.2rem">
+  <span class="pt-tag">Continuous</span>
+  <h4>Continuous Processes</h4>
+  <p>Extremely high volumes with single or very few products. Products are usually inseparable — they flow continuously rather than as discrete units. Highly capital-intensive and automated. Very few changeovers. Extremely difficult and expensive to start up and shut down — often run 24 hours/day, 365 days/year.</p>
+  <div class="g2" style="margin-top:.7rem">
+    <div class="ex" style="margin-top:0">
+      <div class="exl">Real Examples</div>
+      <ul>
+        <li>🛢️ Oil refinery — crude oil flows continuously through distillation columns</li>
+        <li>💧 Municipal water treatment plant</li>
+        <li>📰 Newsprint paper mill — paper produced as a continuous web</li>
+        <li>⚡ Nuclear power station — continuous electricity generation</li>
+        <li>🧪 Chemicals plant — producing bulk commodity chemicals</li>
+      </ul>
+    </div>
+    <p style="font-size:.83rem;color:var(--slate)">Key characteristics: lowest unit cost at scale; but highly inflexible to design changes; very high fixed costs; susceptible to component failures (redundancy essential); stopping = enormous cost.</p>
+  </div>
+</div>
+
+<!-- SERVICE PROCESS TYPES -->
+<div class="card">
+  <h3>Service Process Types</h3>
+  <p>Services have their own equivalent process types, based on the same volume-variety logic:</p>
+  <div class="g3">
+    <div style="background:#f5f0ff;border:1px solid #c4b5fd;border-radius:8px;padding:1rem">
+      <strong style="color:#5b21b6">Professional Services</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Low volume (few clients), high customisation, highly skilled professionals, each engagement unique.</p>
+      <div class="ex" style="margin-top:.5rem"><p>Management consultancy, specialist medical consultants, barristers, architects, independent financial advisors</p></div>
+    </div>
+    <div style="background:#fff0ed;border:1px solid #fca5a5;border-radius:8px;padding:1rem">
+      <strong style="color:#9b2335">Service Shops</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Moderate volume, some standardisation but with customisable elements within a standard framework.</p>
+      <div class="ex" style="margin-top:.5rem"><p>Health club (standard equipment but each member designs their own workout), mid-range restaurant, bank branch, GP surgery, car dealership service centre</p></div>
+    </div>
+    <div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:1rem">
+      <strong style="color:#1e40af">Mass Services</strong>
+      <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Very high volume, low customisation. Standardisation is key to keeping costs low and throughput high.</p>
+      <div class="ex" style="margin-top:.5rem"><p>Call centres, public bus/rail transport, supermarkets, fast-food chains, budget airlines, post offices</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERMITTENT VS CONTINUOUS -->
+<div class="card">
+  <h3>Intermittent vs. Continuous Operations</h3>
+  <p>Operations can be broadly classified as intermittent (output stops and starts) or continuous (never-ending flow). The choice has profound implications for equipment, staffing, and cost structure.</p>
+  <table class="tbl">
+    <tr><th>Decision Factor</th><th>Intermittent Operations</th><th>Continuous Operations</th></tr>
+    <tr><td>Product variety</td><td class="mx-cell good">Great variety</td><td class="mx-cell bad">Very small (often one product)</td></tr>
+    <tr><td>Degree of standardisation</td><td class="mx-cell bad">Low</td><td class="mx-cell good">High</td></tr>
+    <tr><td>Resource organisation</td><td>Grouped by function (job shop)</td><td>Line flow (continuous)</td></tr>
+    <tr><td>Product path</td><td>Varied — depends on product type</td><td>Fixed line flow — same every time</td></tr>
+    <tr><td>Factor driving production</td><td>Customer orders</td><td>Forecast of demand</td></tr>
+    <tr><td>Critical resource</td><td>Labour (people-driven)</td><td>Capital (machine-driven)</td></tr>
+    <tr><td>Equipment type</td><td>General purpose</td><td>Specialised/dedicated</td></tr>
+    <tr><td>Degree of automation</td><td class="mx-cell bad">Low</td><td class="mx-cell good">High</td></tr>
+    <tr><td>Throughput time</td><td class="mx-cell bad">Longer</td><td class="mx-cell good">Shorter</td></tr>
+    <tr><td>Work-in-process inventory</td><td class="mx-cell bad">More (queues build)</td><td class="mx-cell good">Less (steady flow)</td></tr>
+  </table>
+  <div class="ex" style="margin-top:.8rem">
+    <div class="exl">Why this matters strategically</div>
+    <p>A company that chooses continuous processes gains low unit cost but loses flexibility. A surge in demand for a different product variant cannot be accommodated without expensive retooling. Intermittent operations are the opposite — more flexible but inherently more expensive per unit. There is no "right" answer — it depends on market requirements.</p>
+  </div>
+</div>
+
+<!-- DEVIATING FROM THE DIAGONAL -->
+<div class="card">
+  <h3>The Product–Process Matrix: Staying "On the Diagonal"</h3>
+  <p>There is a "natural" fit between volume/variety characteristics and process type. Deviating from this natural alignment has serious cost and performance consequences.</p>
+  <div class="g2" style="margin-top:.9rem">
+    <div class="warnbox" style="margin-top:0">
+      <div class="warnl">Too Much Flexibility for Volume (Above Diagonal)</div>
+      <p>Using a jobbing process for what should be a batch operation. Example: Using a bespoke tailoring approach to produce 10,000 identical school uniforms — massively over-engineered, impossibly expensive.</p>
+    </div>
+    <div class="warnbox" style="margin-top:0">
+      <div class="warnl">Too Little Flexibility for Variety (Below Diagonal)</div>
+      <p>Using a mass production line for what requires a batch process. Example: Running a rigid assembly line but offering 200 different product variants — constant changeovers cripple efficiency; you have neither low cost nor true flexibility.</p>
+    </div>
+  </div>
+  <div class="keybox" style="margin-top:.8rem">
+    <div class="keyl">Key Insight</div>
+    <p>Operations must honestly assess their actual volume and variety requirements, then select the process type that fits. Misalignment is one of the most common — and costly — operations management mistakes.</p>
+  </div>
+</div>
+
+<!-- PROCESS MAPPING -->
+<div id="mapping" class="stitle">Detailed Process Design: Mapping &amp; Blueprinting</div>
+
+<div class="card">
+  <h3>Process Mapping</h3>
+  <p>Process mapping describes processes in terms of how the activities within them relate to each other. It makes the invisible visible — turning a complex sequence of tasks into a clear diagram that everyone can understand, analyse, and improve.</p>
+  <div class="sym-grid">
+    <div class="sym-item"><span class="sym-icon">⭕</span><div><strong>Operation</strong><p>An activity that directly adds value to the transformed resource</p></div></div>
+    <div class="sym-item"><span class="sym-icon">□</span><div><strong>Inspection</strong><p>A check of some sort — quality control, verification</p></div></div>
+    <div class="sym-item"><span class="sym-icon">➡️</span><div><strong>Transport</strong><p>A movement of something from one place to another</p></div></div>
+    <div class="sym-item"><span class="sym-icon">▷</span><div><strong>Delay</strong><p>A wait — e.g. waiting for materials, a machine, or a decision</p></div></div>
+    <div class="sym-item"><span class="sym-icon">▽</span><div><strong>Storage</strong><p>Deliberate storage (as opposed to an unintended delay)</p></div></div>
+    <div class="sym-item"><span class="sym-icon">◇</span><div><strong>Decision</strong><p>A point where the flow splits based on a condition (Yes/No)</p></div></div>
+    <div class="sym-item"><span class="sym-icon">🔵</span><div><strong>Start/End</strong><p>Beginning or end of the process (from systems analysis)</p></div></div>
+    <div class="sym-item"><span class="sym-icon">//</span><div><strong>Input/Output</strong><p>Data or material entering or leaving the process</p></div></div>
+  </div>
+  <div class="ex" style="margin-top:1rem">
+    <div class="exl">Prêt a Manger Process Maps — Three Approaches Compared</div>
+    <div class="g3" style="margin-top:.5rem">
+      <div>
+        <strong>Standard (Pre-Made) Process:</strong>
+        <p>Raw materials → Assembly (batch) → Store sandwiches → Transport to outlet → Store → Customer selects → Sell → Take payment</p>
+        <p style="font-size:.8rem;margin-top:.3rem"><em>Efficient for high-volume standard lines; wastes product if demand changes.</em></p>
+      </div>
+      <div>
+        <strong>Old Customised Process:</strong>
+        <p>Raw materials → Customer requests → Assembly (one at a time) → Take payment</p>
+        <p style="font-size:.8rem;margin-top:.3rem"><em>Highly flexible but slow; creates queues during peak periods.</em></p>
+      </div>
+      <div>
+        <strong>New Customised Process:</strong>
+        <p>Bread + base filling → Pre-assemble bases → Store → Customer arrives → Decision: Standard base? → Yes: Add fillings → Pay. No: Assemble whole sandwich → Add fillings → Pay</p>
+        <p style="font-size:.8rem;margin-top:.3rem"><em>Balances speed and customisation — best of both.</em></p>
+      </div>
+    </div>
+  </div>
+  <div class="keybox" style="margin-top:.8rem">
+    <div class="keyl">Using Process Maps to Improve</div>
+    <p>Once mapped, look for: <strong>delays</strong> (waiting that adds no value), <strong>unnecessary transport</strong> (moving things that shouldn't be moved), <strong>redundant inspections</strong> (checking what should be correct first time), and <strong>decision complexity</strong> (branches that slow flow). Each is an improvement opportunity.</p>
+  </div>
+</div>
+
+<!-- BLUEPRINTING -->
+<div class="card">
+  <h3>Service Blueprinting</h3>
+  <p>Service blueprinting extends process mapping specifically for services, by separating what the customer sees (front stage) from what happens behind the scenes (backstage). This is critical because customers experience and judge only the front-stage.</p>
+  <div class="g2" style="margin-top:.9rem">
+    <div>
+      <strong>Six Steps to Develop a Blueprint:</strong>
+      <ol style="font-size:.85rem;padding-left:1.2rem;margin-top:.5rem;color:var(--slate)">
+        <li>Identify all key activities in creating and delivering the service</li>
+        <li>Define the "big picture" before drilling down to detail</li>
+        <li>Distinguish between <strong>front stage</strong> (customer-visible) and <strong>backstage</strong> (invisible to customer)</li>
+        <li>Clarify interactions between customers and staff, and how backstage supports them</li>
+        <li>Identify potential fail points and plan contingencies</li>
+        <li>Develop execution standards — maximum wait times, task completion times, staff scripts</li>
+      </ol>
+    </div>
+    <div>
+      <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border);margin-bottom:.8rem">
+        <strong style="color:var(--teal)">Front Stage (visible to customer)</strong>
+        <p style="font-size:.83rem;margin-top:.3rem">Reservations, greeting at door, valet parking, coat check, table service, food presentation, billing. Customer experiences and judges ALL of these.</p>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+        <strong style="color:var(--violet)">Backstage (invisible to customer)</strong>
+        <p style="font-size:.83rem;margin-top:.3rem">Maintaining reservation systems, taking car to parking lot, kitchen food preparation, dishwashing, HR management, supplier deliveries. Customer never sees these — but they enable the front stage.</p>
+      </div>
+    </div>
+  </div>
+  <div class="ex" style="margin-top:.9rem">
+    <div class="exl">Restaurant Blueprint Example</div>
+    <p><strong>Timeline:</strong> Make Reservation → Valet Parking → Coat Room → Seated → Order taken → Food served → Dessert → Bill → Farewell</p>
+    <p style="margin-top:.4rem"><strong>Line of interaction</strong> (customer ↔ staff): All the above steps</p>
+    <p><strong>Line of visibility:</strong> Separates what customer sees from backstage</p>
+    <p><strong>Line of internal interaction:</strong> Separates front-stage from support systems (kitchen, IT, HR)</p>
+    <p style="margin-top:.4rem"><em>Fail point example: If the reservation system double-books a table (backstage failure), the customer arrives to find no table — a catastrophic front-stage failure despite front-stage staff doing nothing wrong.</em></p>
+  </div>
+</div>
+
+<!-- PROCESS FLOWCHARTING -->
+<div class="card">
+  <h3>Process Flowcharting</h3>
+  <p>Process flowcharting graphically defines an operation step-by-step. It helps visualise the flow of work and information, identifies potential problem areas, and can be as simple or detailed as needed.</p>
+  <div class="ex">
+    <div class="exl">Restaurant order flowchart — key decision points</div>
+    <div class="flow" style="flex-direction:column;align-items:flex-start;gap:.4rem">
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="flow-box" style="background:#dcfce7;border-color:var(--teal)">Customer enters</div>
+        <div class="flow-arrow">↓</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="flow-box">Long wait?</div>
+        <span style="font-size:.8rem;color:var(--rose)">Yes → Keep waiting? → No → Lost sale ❌</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span style="font-size:.8rem;color:var(--teal)">No ↓</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="flow-box">Customer places order</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-box">Waits for order</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="flow-box">Long wait?</div>
+        <span style="font-size:.8rem;color:var(--rose)">Yes → Keep waiting? → No → Lost sale ❌</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span style="font-size:.8rem;color:var(--teal)">No ↓</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <div class="flow-box">Order arrives</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box">Order correct?</div>
+        <span style="font-size:.8rem;color:var(--rose)">No → Wait for new order? → No → Lost sale ❌</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem">
+        <span style="font-size:.8rem;color:var(--teal)">Yes ↓</span>
+      </div>
+      <div class="flow-box" style="background:#dcfce7;border-color:var(--teal)">Customer satisfied ✓</div>
+    </div>
+    <p style="font-size:.82rem;margin-top:.6rem">Each "Long wait?" diamond is a <strong>possible problem area</strong>. Process redesign focuses on reducing wait times at these critical decision points.</p>
+  </div>
+</div>
+
+<!-- ── LAYOUTS ── -->
+<div id="layouts" class="stitle">Layout and Flow</div>
+
+<div class="card">
+  <h3>What is Layout?</h3>
+  <div class="defbox">
+    <div class="defl">Definition</div>
+    <p>The layout of an operation means <strong>how its transforming resources are positioned relative to each other</strong> and how various tasks are allocated to those resources. It dictates the pattern of flow for transformed resources as they move through the operation.</p>
+  </div>
+  <div class="g2" style="margin-top:.9rem">
+    <div class="warnbox" style="margin-top:0">
+      <div class="warnl">Consequences of Poor Layout</div>
+      <ul>
+        <li>Over-long or confused flow patterns</li>
+        <li>Customer queues and long waiting times</li>
+        <li>Long process times and inflexibility</li>
+        <li>Unpredictable flow and high unit cost</li>
+        <li>Difficulty of supervision and management</li>
+      </ul>
+    </div>
+    <div class="keybox" style="margin-top:0">
+      <div class="keyl">Why Layout Decisions Are Difficult</div>
+      <ul>
+        <li>Equipment may be large, heavy, expensive to move</li>
+        <li>Disruption during relayout can lose customers</li>
+        <li>Complex flow can evolve subtly over years — "layout drift"</li>
+        <li>What works today may not work as the product mix changes</li>
+        <li>Re-laying out an existing operation carries both financial and operational risk</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>What Makes a Good Layout?</h3>
+  <div class="g2">
+    <ul style="font-size:.88rem;padding-left:1.2rem;color:var(--slate)">
+      <li><strong>Inherent safety:</strong> Safe flows with no risk of accidents; clear emergency exits</li>
+      <li><strong>Short flow lengths:</strong> Minimise the distance transformed resources travel — shorter = faster, cheaper</li>
+      <li><strong>Clarity of flow:</strong> Clear signposting; staff and customers always know where to go next</li>
+      <li><strong>Staff conditions:</strong> Pleasant, safe, ergonomic workspace that supports well-being and productivity</li>
+    </ul>
+    <ul style="font-size:.88rem;padding-left:1.2rem;color:var(--slate)">
+      <li><strong>Management coordination:</strong> Layout should facilitate supervision and communication between teams</li>
+      <li><strong>Accessibility:</strong> Equipment and areas accessible for proper cleaning, inspection, and maintenance</li>
+      <li><strong>Efficient use of space:</strong> Maximise the proportion of space that adds value (vs. wasted corridor space)</li>
+      <li><strong>Long-term flexibility:</strong> Ability to reconfigure without enormous cost as products and volumes change</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOUR LAYOUT TYPES -->
+<div class="stitle" style="font-size:1.1rem">The Four Basic Layout Types</div>
+
+<div class="g2">
+  <div class="lay-card">
+    <div class="lay-head">
+      <div class="lay-icon" style="background:#f5f0ff">📍</div>
+      <h4>1. Fixed-Position Layout</h4>
+    </div>
+    <p style="font-size:.88rem;color:var(--slate)">The transformed resource (product or customer) is stationary — it is too large, delicate, or difficult to move. All transforming resources (workers, tools, equipment, materials) must travel to it.</p>
+    <div class="adv">✅ Advantages</div>
+    <ul><li>Very high product and mix flexibility</li><li>Product/customer not moved — avoids damage</li><li>High variety of tasks for staff; skilled, engaged workers</li></ul>
+    <div class="dis">❌ Disadvantages</div>
+    <ul><li>Very high unit cost — inefficient use of specialised labour</li><li>Scheduling space and activities is complex</li><li>Workers must bring everything to site — logistics intensive</li></ul>
+    <div class="ex" style="margin-top:.8rem">
+      <div class="exl">Examples</div>
+      <ul>
+        <li>🚢 Shipbuilding — ship stays on slipway, workers come to it</li>
+        <li>🏥 Open-heart surgery — patient on table, surgical team comes to patient</li>
+        <li>🏗️ Bridge/skyscraper construction</li>
+        <li>🍽️ Fine dining restaurant — chef/waiter comes to your table</li>
+        <li>🖥️ Mainframe computer maintenance on-site</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lay-card">
+    <div class="lay-head">
+      <div class="lay-icon" style="background:#fff0f6">🏢</div>
+      <h4>2. Functional (Process) Layout</h4>
+    </div>
+    <p style="font-size:.88rem;color:var(--slate)">Similar resources or processes are grouped together in departments/areas. Products/customers move between these functional areas as needed — and because each has different needs, flow patterns are varied and complex. Also called "process layout."</p>
+    <div class="adv">✅ Advantages</div>
+    <ul><li>High product and mix flexibility — handles huge variety</li><li>Relatively robust — if one area breaks down, others continue</li><li>Workers develop deep expertise in their function</li><li>Equipment grouped for efficient maintenance</li></ul>
+    <div class="dis">❌ Disadvantages</div>
+    <ul><li>Low utilisation of equipment (not always busy)</li><li>High work-in-process inventory (queues between departments)</li><li>Complex, unpredictable flow — hard to control</li><li>Long throughput times</li></ul>
+    <div class="ex" style="margin-top:.8rem">
+      <div class="exl">Examples</div>
+      <ul>
+        <li>🏥 Hospital — X-ray dept, labs, pharmacy, wards all separate functional areas</li>
+        <li>🏪 Supermarket — dairy aisle, frozen foods, bakery, meat counter all grouped by type</li>
+        <li>📚 Library — loan books, reference section, online terminals, study desks, journal stacks all in separate zones</li>
+        <li>🏭 Engineering workshop — lathes together, milling machines together, drilling together</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lay-card">
+    <div class="lay-head">
+      <div class="lay-icon" style="background:#f0fdf4">🔲</div>
+      <h4>3. Cell Layout</h4>
+    </div>
+    <p style="font-size:.88rem;color:var(--slate)">Transformed resources are pre-selected to move to a specific cell that contains all the transforming resources needed for their type. The cell handles a family of similar products/customers. It is an attempt to bring order to the complexity of functional layout while retaining some flexibility.</p>
+    <div class="adv">✅ Advantages</div>
+    <ul><li>Good compromise — fast throughput with some flexibility</li><li>Team work within the cell creates good staff motivation</li><li>Clearer, more manageable flow than functional layout</li><li>Lower WIP than functional layout</li></ul>
+    <div class="dis">❌ Disadvantages</div>
+    <ul><li>Can be costly to rearrange existing functional layout into cells</li><li>May need more total plant/equipment (some duplication across cells)</li><li>Cell boundaries can become rigid — cross-cell communication needed</li></ul>
+    <div class="ex" style="margin-top:.8rem">
+      <div class="exl">Examples</div>
+      <ul>
+        <li>💻 Laptop factory — dedicated cell for assembling Brand A laptops, another cell for Brand B</li>
+        <li>🥪 Supermarket "grab &amp; go lunch" zone — all lunch items together for time-pressed customers</li>
+        <li>🤰 Maternity unit in a general hospital — a self-contained unit for a defined patient group</li>
+        <li>🏭 Focused factory within a factory — a cell dedicated to one product family</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lay-card">
+    <div class="lay-head">
+      <div class="lay-icon" style="background:#fff7ed">➡️</div>
+      <h4>4. Product (Line/Flow) Layout</h4>
+    </div>
+    <p style="font-size:.88rem;color:var(--slate)">Transforming resources are located entirely for the convenience of the transformed resource. Every product/customer follows the same pre-arranged route through resources arranged in the sequence of process steps. Flow is predictable and easy to control. Also called "line layout" or "flow layout."</p>
+    <div class="adv">✅ Advantages</div>
+    <ul><li>Low unit cost for high volumes — maximum efficiency</li><li>Easy to control and schedule</li><li>Short throughput time — products move quickly</li><li>Opportunities for specialised equipment at each stage</li></ul>
+    <div class="dis">❌ Disadvantages</div>
+    <ul><li>Low mix flexibility — hard to accommodate different products</li><li>Not robust to disruption — one breakdown halts everything</li><li>Work can be very repetitive — demotivating for staff</li><li>High capital investment in dedicated equipment</li></ul>
+    <div class="ex" style="margin-top:.8rem">
+      <div class="exl">Examples</div>
+      <ul>
+        <li>🚗 Car assembly line — every model follows the exact same sequence of stations</li>
+        <li>🍽️ Self-service cafeteria — starter → main → dessert → drinks → checkout</li>
+        <li>📄 Loan application processing — every application goes: receive → assess → decision → document → pay out</li>
+        <li>🧼 Bottling plant — fill → cap → label → pack → palletise (same for every bottle)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- MIXED LAYOUTS -->
+<div class="card" style="margin-top:1.2rem">
+  <h3>Mixed Layouts — How Real Operations Combine Types</h3>
+  <p>Most real-world operations use <strong>hybrid or mixed layouts</strong> — combining elements of different basic types in different parts of the operation, or using "pure" types in separate zones.</p>
+  <div class="ex" style="margin-top:.8rem">
+    <div class="exl">Hospital Example</div>
+    <p>A hospital's overall layout is <strong>functional</strong> (X-ray department, labs, wards, pharmacy all grouped by function). But within that:</p>
+    <ul>
+      <li><strong>Surgical theatres:</strong> Fixed-position layout (patient on table, surgical team comes to them)</li>
+      <li><strong>Blood processing laboratory:</strong> Product/line layout (samples flow through a fixed sequence of tests)</li>
+      <li><strong>Maternity unit:</strong> Cell layout (self-contained unit serving a defined patient group)</li>
+      <li><strong>X-ray department:</strong> Functional layout (different machines for chest X-ray, CT scan, MRI)</li>
+    </ul>
+  </div>
+  <div class="ex" style="margin-top:.8rem">
+    <div class="exl">Restaurant Complex Example</div>
+    <ul>
+      <li><strong>Fine dining section:</strong> Fixed-position — waiter brings everything to your table</li>
+      <li><strong>Buffet section:</strong> Cell layout — separate starter cell, main course cell, dessert cell</li>
+      <li><strong>Self-service cafeteria:</strong> Product/line layout — move along the service line in sequence</li>
+      <li><strong>Kitchen:</strong> Functional layout — grill area, prep area, pastry section, plating section all separate</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LAYOUT SELECTION GUIDE -->
+<div class="card">
+  <h3>How Volume and Variety Determine Layout Choice</h3>
+  <p>The volume–variety characteristics of an operation are the primary determinant of which layout type is appropriate. As volume increases and variety decreases, the "natural" layout shifts from fixed-position through to product layout.</p>
+  <table class="tbl">
+    <tr><th>Operation Characteristics</th><th>Natural Layout Choice</th><th>Flow Pattern</th><th>Unit Cost</th></tr>
+    <tr><td>Very low volume, unique one-off products</td><td>Fixed-position</td><td>Intermittent / none</td><td>Very high</td></tr>
+    <tr><td>Low-medium volume, high variety</td><td>Functional</td><td>Intermittent / complex</td><td>High</td></tr>
+    <tr><td>Medium volume, product families</td><td>Cell</td><td>Regular within cell</td><td>Medium</td></tr>
+    <tr><td>High volume, low variety</td><td>Product (line)</td><td>Continuous / predictable</td><td>Low</td></tr>
+  </table>
+  <div class="keybox" style="margin-top:.9rem">
+    <div class="keyl">Advantage/Disadvantage Summary</div>
+    <table class="tbl" style="margin-top:.3rem;font-size:.82rem">
+      <tr><th>Layout</th><th>Key Advantage</th><th>Key Disadvantage</th></tr>
+      <tr><td>Fixed-position</td><td>Maximum flexibility; no product movement</td><td>Very high unit cost; complex logistics</td></tr>
+      <tr><td>Functional</td><td>High variety; robust to disruption</td><td>Low utilisation; high WIP; complex flow</td></tr>
+      <tr><td>Cell</td><td>Good compromise; team motivation</td><td>Costly to set up; possible equipment duplication</td></tr>
+      <tr><td>Product (line)</td><td>Low unit cost; easy control</td><td>Low flexibility; vulnerable to breakdown</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- PROCESS TYPE vs LAYOUT TYPE TABLE -->
+<div class="card">
+  <h3>Relationship Between Process Types and Layout Types</h3>
+  <p>There is a natural alignment between the process type (determined by volume/variety) and the layout type. Service operations follow the same logic as manufacturing.</p>
+  <table class="tbl">
+    <tr><th>Manufacturing Process Type</th><th>Basic Layout Type</th><th>Service Process Type</th></tr>
+    <tr><td>Project processes</td><td rowspan="2">Fixed-position layout</td><td rowspan="2">Professional services</td></tr>
+    <tr><td>Jobbing processes</td></tr>
+    <tr><td>Batch processes</td><td>Functional layout → Cell layout</td><td>Service shops</td></tr>
+    <tr><td>Mass processes</td><td rowspan="2">Product layout</td><td rowspan="2">Mass services</td></tr>
+    <tr><td>Continuous processes</td></tr>
+  </table>
+</div>
+
+<!-- QUEUING -->
+<div id="queuing" class="stitle">Queuing Methods</div>
+
+<div class="card">
+  <h3>The Psychology and Management of Queues</h3>
+  <p>Almost nobody likes waiting. An average person may spend up to <strong>30 minutes per day</strong> waiting in line — and research shows people overestimate idle wait time by up to 36%. Queues are not just operational problems; they are customer experience problems.</p>
+  <div class="g2" style="margin-top:.9rem">
+    <div>
+      <p style="font-size:.88rem;margin-bottom:.6rem">Queues occur when <strong>demand temporarily exceeds capacity</strong>. They can be:</p>
+      <ul style="font-size:.85rem;color:var(--slate);padding-left:1.1rem">
+        <li><strong>Physical:</strong> People standing in a line at one location (post office)</li>
+        <li><strong>Geographically dispersed:</strong> Patients waiting at home for hospital appointments</li>
+        <li><strong>Virtual:</strong> Online waiting rooms; Uber showing "your driver is 3 minutes away"</li>
+        <li><strong>Psychological:</strong> The perception of waiting — even when no formal queue exists</li>
+      </ul>
+    </div>
+    <div class="keybox" style="margin-top:0">
+      <div class="keyl">Managing Perceived Wait Time</div>
+      <ul>
+        <li><strong>Occupied time feels shorter:</strong> Give customers something to do (menus, entertainment, screens)</li>
+        <li><strong>Uncertain waits feel longer:</strong> Tell customers how long the wait will be</li>
+        <li><strong>Unexplained waits feel longer:</strong> Tell customers why they're waiting</li>
+        <li><strong>Unfair waits feel longest:</strong> Use snake queues (one line, multiple servers) to ensure perceived fairness</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Alternative Queuing Configurations</h3>
+  <div class="q-config">
+    <h5>1. Single Line / Single Server / Single Stage</h5>
+    <div class="q-visual">
+      <div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div>
+      <div class="q-arrow">→</div><div class="q-server">S</div>
+    </div>
+    <p>Simplest configuration. One queue, one server, one stage. Best for low-volume situations. Risk: if the server is slow or absent, everyone waits.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> A small newsagent with one till, one cashier.</p>
+  </div>
+  <div class="q-config">
+    <h5>2. Single Line / Single Servers at Sequential Stages</h5>
+    <div class="q-visual">
+      <div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div>
+      <div class="q-arrow">→</div><div class="q-server">S1</div>
+      <div class="q-arrow">→</div><div class="q-dot active"></div><div class="q-dot active"></div>
+      <div class="q-arrow">→</div><div class="q-server">S2</div>
+      <div class="q-arrow">→</div><div class="q-server">S3</div>
+    </div>
+    <p>Multiple stages in sequence. Each stage adds value. A bottleneck at any one stage creates queues at all previous stages.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> Airport process: Check-in counter → Security screening → Passport control → Gate boarding.</p>
+  </div>
+  <div class="q-config">
+    <h5>3. Parallel Lines to Multiple Servers</h5>
+    <div class="q-visual">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot"></div><div class="q-dot"></div><div class="q-arrow">→</div><div class="q-server">S1</div></div>
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot"></div><div class="q-dot"></div><div class="q-arrow">→</div><div class="q-server">S2</div></div>
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot"></div><div class="q-dot"></div><div class="q-arrow">→</div><div class="q-server">S3</div></div>
+      </div>
+    </div>
+    <p>Separate queues for each server. Customers choose their queue. Perceived as unfair when adjacent queues move faster. Higher throughput but lower utilisation if queues imbalanced.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> Traditional supermarket with separate queues at each checkout till.</p>
+  </div>
+  <div class="q-config">
+    <h5>4. Single "Snake" Line to Multiple Servers</h5>
+    <div class="q-visual">
+      <div style="background:rgba(0,0,0,.05);padding:.5rem;border-radius:6px;display:flex;flex-wrap:wrap;gap:4px;max-width:150px">
+        <div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div>
+        <div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div>
+      </div>
+      <div class="q-arrow">→</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div class="q-server">S1</div>
+        <div class="q-server">S2</div>
+        <div class="q-server">S3</div>
+      </div>
+    </div>
+    <p>One shared queue feeds whichever server becomes free next. Perceived as fairer (FIFO — first in, first out). Reduces average wait time. Preferred for customer-facing service.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> Bank branches, theme park ride queues, airport security (roped queue leading to multiple screening lanes).</p>
+  </div>
+  <div class="q-config">
+    <h5>5. Designated Lines to Designated Servers</h5>
+    <div class="q-visual">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot active"></div><div class="q-dot active"></div><div class="q-arrow">→</div><div class="q-server" style="background:var(--teal)">Express</div></div>
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div><div class="q-arrow">→</div><div class="q-server">Normal</div></div>
+        <div style="display:flex;align-items:center;gap:4px"><div class="q-dot"></div><div class="q-dot"></div><div class="q-dot"></div><div class="q-arrow">→</div><div class="q-server">Premium</div></div>
+      </div>
+    </div>
+    <p>Different customer types directed to specific servers. Allows differentiated service levels. Express lane for small orders; priority lane for premium customers; standard lane for regular customers.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> Supermarket with "10 items or less" express lane; airline check-in with business class, frequent flyer, and economy queues.</p>
+  </div>
+  <div class="q-config">
+    <h5>6. "Take a Number" System</h5>
+    <div class="q-visual">
+      <div style="background:var(--cream);padding:.5rem;border-radius:6px;font-family:'DM Mono',monospace;font-size:.85rem;color:var(--navy)">
+        Now serving: <strong>47</strong><br>Your ticket: <strong>52</strong>
+      </div>
+      <div class="q-arrow">→</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div class="q-server">S1</div>
+        <div class="q-server">S2</div>
+      </div>
+    </div>
+    <p>Customers take a numbered ticket and wait freely (sitting, browsing, doing other tasks). Called when their number appears. Eliminates physical queue standing; reduces anxiety about losing place.</p>
+    <p style="font-size:.8rem;margin-top:.3rem"><strong>Example:</strong> DVLA offices, hospital waiting rooms, deli counters in supermarkets, bank branches in some countries.</p>
+  </div>
+  <div class="ex" style="margin-top:.8rem">
+    <div class="exl">Modern Virtual Queuing — Disney FastPass &amp; Beyond</div>
+    <p>Disney's FastPass (and successor Genie+) allows guests to book a ride time in advance — they join a virtual queue and receive a notification when to arrive. Physical waiting time drops from 60+ minutes to near-zero. The guest spends the time eating, shopping, or on other rides. Disney benefits from: happier guests, more distributed foot traffic, and more spend in food/retail during "waiting" time.</p>
+    <p style="margin-top:.4rem">Restaurants use buzzer/pager systems for the same purpose. Uber shows "your driver is 4 minutes away" — turning an uncertain wait into a managed expectation. These are all process design decisions.</p>
+  </div>
+</div>
+
+<!-- ══════ OPERATIONS STRATEGY WITH PROCESS SELECTION ══════ -->
+<div class="stitle">Operations Strategy with Respect to Process Selection</div>
+
+<div class="card">
+  <h3>Strategic Considerations in Process Selection</h3>
+  <div class="g2">
+    <div>
+      <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border);margin-bottom:.8rem">
+        <strong>Hire Managers with Both Technical and Managerial Skills</strong>
+        <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Pure engineers make technically optimal but managerially impractical decisions ("white elephants" — over-engineered, expensive solutions that don't fit the business). Managers need both perspectives to select appropriate processes.</p>
+      </div>
+      <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+        <strong>Build Flexibility as a Competitive Strategy</strong>
+        <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Flexibility should be designed into processes at all levels — not just as a reactive afterthought. Markets change; processes that cannot adapt quickly become liabilities.</p>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--cream);border-radius:8px;padding:1rem;border:1px solid var(--border)">
+        <strong>Capital Intensity: Judicious Use of Automation</strong>
+        <p style="font-size:.83rem;margin-top:.3rem;color:var(--slate)">Capital intensity = the mix of equipment and labour in a process. More automation generally lowers variable cost per unit but raises fixed costs. Unnecessary automation can increase costs (especially if demand is variable) and create inventory backlogs. The decision must be driven by volume, variety, and demand variability — not by the appeal of new technology.</p>
+        <div class="ex" style="margin-top:.5rem"><p>Amazon automates high-volume, repetitive picking tasks with robots, but retains human pickers for awkward or fragile items where robots still underperform. This is judicious automation — not automation for its own sake.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ REVISION SECTION ══════ -->
+<div id="revision" class="chapter">
+  <div class="ch-num">✏️</div>
+  <div class="ch-text">
+    <h2>Revision Q&amp;A</h2>
+    <p>Click each question to reveal the full model answer</p>
+  </div>
+</div>
+
+<details>
+  <summary>Define operations management and explain why it is important to a business.</summary>
+  <div class="db">
+    <p><strong>Definition:</strong> OM is the activity of managing resources devoted to the production and delivery of products and services. It is the business function responsible for planning, coordinating, and controlling those resources.</p>
+    <p style="margin-top:.5rem"><strong>Importance:</strong> OM matters because it (1) reduces costs through efficiency, (2) increases revenue by delivering quality and service that satisfies customers, (3) reduces the need for investment by maximising use of existing capacity, and (4) enhances innovation by building operational skills and knowledge.</p>
+    <p style="margin-top:.5rem"><em>Example: At IKEA, OM is responsible for the store layout, product replenishment, staff deployment, and quality of customer service — all of which directly drive IKEA's low-cost, high-volume strategy.</em></p>
+  </div>
+</details>
+
+<details>
+  <summary>Explain the Input–Transformation–Output model with examples.</summary>
+  <div class="db">
+    <p>Every operation takes <strong>inputs</strong> (transformed resources: materials, information, customers; plus transforming resources: facilities, staff), subjects them to a <strong>transformation process</strong> (design, planning and control, improvement), and produces <strong>outputs</strong> (products and services) that add value for customers.</p>
+    <ul style="margin-top:.5rem">
+      <li>A car factory transforms steel and components (materials) using robots and workers (transforming resources) into finished cars</li>
+      <li>A hospital transforms sick patients (customers) using doctors and equipment into healthier patients</li>
+      <li>A bank transforms financial information using IT systems and advisors into mortgage products</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>What are the five performance objectives? Give an industry example for each.</summary>
+  <div class="db">
+    <ul>
+      <li><strong>Quality:</strong> Doing things right. DHL ensures parcels are undamaged and correctly addressed.</li>
+      <li><strong>Speed:</strong> Doing things fast. McDonald's targets under 3-minute order-to-hand-over time.</li>
+      <li><strong>Dependability:</strong> Doing things on time. FedEx guarantees next-day delivery by 10 AM.</li>
+      <li><strong>Flexibility:</strong> Changing what you do. A job shop can switch between different machined components quickly.</li>
+      <li><strong>Cost:</strong> Doing things cheaply. Ryanair strips every non-essential cost to offer the lowest fares.</li>
+    </ul>
+    <p style="margin-top:.5rem">Note: improving quality, speed, dependability, and flexibility also <em>reduces cost</em> — fewer defects, less WIP, less rescheduling all save money.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Explain the 4 Vs framework and its strategic implications.</summary>
+  <div class="db">
+    <p>The 4 Vs (Volume, Variety, Variation, Visibility) profile an operation and reveal its cost structure and strategic position.</p>
+    <ul style="margin-top:.5rem">
+      <li><strong>High volume</strong> → repetition, specialisation, lower unit cost</li>
+      <li><strong>High variety</strong> → customisation, flexibility needed, higher unit cost</li>
+      <li><strong>High variation in demand</strong> → flexible capacity needed, hard to schedule, higher cost</li>
+      <li><strong>High visibility</strong> → customer contact skills essential, cannot be fully industrialised</li>
+    </ul>
+    <p style="margin-top:.5rem">Strategic implication: operations managers must understand their 4 Vs position and decide whether it is appropriate for their market. Moving up volume while reducing variety cuts cost but reduces responsiveness. The choice must align with competitive strategy.</p>
+  </div>
+</details>
+
+<details>
+  <summary>What are the five manufacturing process types? When would each be used?</summary>
+  <div class="db">
+    <ul>
+      <li><strong>Project:</strong> One-off, complex, large-scale products. E.g. building a bridge. Use when: every output is unique, coordination of many specialist skills required.</li>
+      <li><strong>Jobbing:</strong> Very small quantities, highly customised. E.g. bespoke tailor. Use when: extremely low volumes, high variety, skilled generalist workers available.</li>
+      <li><strong>Batch:</strong> Medium volumes of standard products with repeating demand. E.g. bakery. Use when: demand is predictable but variety still needed; set-ups are feasible.</li>
+      <li><strong>Mass (line):</strong> High volume, low variety. E.g. car assembly line. Use when: very high stable demand for a limited product range; high capital investment justified.</li>
+      <li><strong>Continuous:</strong> Extremely high volume, single product. E.g. oil refinery. Use when: demand is essentially unlimited, product is homogeneous, start/stop costs are prohibitive.</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>Describe and compare the four basic facility layout types.</summary>
+  <div class="db">
+    <ul>
+      <li><strong>Fixed-position:</strong> Product stays still; resources come to it. Best for very large or delicate products. High flexibility, very high unit cost. E.g. shipbuilding, surgery.</li>
+      <li><strong>Functional:</strong> Similar resources grouped together. Different products take different routes. High variety and robustness; complex flow, high WIP, low utilisation. E.g. hospital, library.</li>
+      <li><strong>Cell:</strong> Resources grouped into cells for product families. Good compromise of speed and flexibility; team motivation benefits. Some duplication of equipment. E.g. maternity unit, focused factory.</li>
+      <li><strong>Product (line):</strong> Resources arranged in sequence of process steps. Predictable flow; low unit cost; easy to control; low flexibility; vulnerable to breakdowns. E.g. car assembly, cafeteria service line.</li>
+    </ul>
+    <p style="margin-top:.5rem">Key: as volume increases and variety decreases, the appropriate layout moves from fixed-position → functional → cell → product.</p>
+  </div>
+</details>
+
+<details>
+  <summary>What is process mapping and how is it used to improve operations?</summary>
+  <div class="db">
+    <p>Process mapping describes processes using standardised symbols (operation, inspection, transport, delay, storage, decision) to show how activities relate to each other. It makes the invisible visible.</p>
+    <p style="margin-top:.5rem"><strong>How it improves operations:</strong></p>
+    <ul>
+      <li>Identifies non-value-adding steps (delays, unnecessary transport)</li>
+      <li>Reveals where decision complexity slows flow</li>
+      <li>Allows before/after comparison when redesigning processes</li>
+      <li>Supports staff training — everyone understands the full process</li>
+      <li>Highlights potential fail points before they cause problems</li>
+    </ul>
+    <p style="margin-top:.5rem"><em>Example: Prêt a Manger's process map showed that the old customised sandwich process created bottlenecks at peak hours. The new process pre-assembles bread bases, using a decision node to redirect standard orders to a fast path — reducing throughput time significantly.</em></p>
+  </div>
+</details>
+
+<details>
+  <summary>What is the Triple Bottom Line and why does it matter to operations managers?</summary>
+  <div class="db">
+    <p>The Triple Bottom Line measures business performance across three dimensions: <strong>Economic</strong> (profit), <strong>Social</strong> (impact on communities and employees), and <strong>Environmental</strong> (impact on the natural environment).</p>
+    <p style="margin-top:.5rem">It matters to operations managers because: (1) regulators increasingly require environmental reporting, (2) customers and employees favour ethical, sustainable organisations, (3) resource efficiency (a sustainability goal) also reduces costs, and (4) supply chain scrutiny means operations must ensure suppliers also meet standards.</p>
+    <p style="margin-top:.5rem"><em>Example: Unilever's Sustainable Living Plan requires operations to halve environmental footprint, improve wellbeing for 1 billion people, and double the business size — all simultaneously, requiring operations strategy to balance all three.</em></p>
+  </div>
+</details>
+
+<details>
+  <summary>Explain the Balanced Scorecard and its relevance to operations strategy.</summary>
+  <div class="db">
+    <p>The Balanced Scorecard (Kaplan &amp; Norton) translates vision and strategy into performance measures across four perspectives: Financial ("how do we appear to shareholders?"), Customer ("how do we appear to customers?"), Internal Processes ("which processes must we excel at?"), and Learning &amp; Growth ("how do we sustain improvement?").</p>
+    <p style="margin-top:.5rem">For operations managers, the BSC prevents optimising only financial metrics at the expense of long-term capability. An operation that cuts training (L&amp;G) to save money may improve short-term profits but harm long-term process quality and customer satisfaction. The BSC forces balance across all four perspectives, ensuring operations strategy is aligned with the overall organisational vision.</p>
+  </div>
+</details>
+
+<details>
+  <summary>What is productivity, how is it measured, and how can it be improved?</summary>
+  <div class="db">
+    <p><strong>Definition:</strong> P = Outputs ÷ Inputs. The more output per unit of input, the more productive the operation.</p>
+    <p style="margin-top:.5rem"><strong>Types of measurement:</strong></p>
+    <ul>
+      <li><strong>Single-factor productivity:</strong> Output per unit of one input (e.g. units per worker-hour)</li>
+      <li><strong>Multi-factor productivity:</strong> Output relative to several inputs combined (e.g. output per £ of labour + material cost)</li>
+      <li><strong>Total factor productivity:</strong> All outputs relative to all inputs</li>
+    </ul>
+    <p style="margin-top:.5rem"><strong>How to improve it:</strong> Lean techniques (eliminate waste), process redesign (remove non-value-adding steps), automation, better scheduling (match staffing to demand), staff training (faster, fewer errors), and capacity management (spread fixed costs over more units).</p>
+  </div>
+</details>
+
+</div><!-- end page -->
+
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<footer>
+  <strong>Operations Management — Complete Study Guide</strong><br>
+  Covering all content from Lectures 1 &amp; 2 · For educational purposes
+</footer>
+
+<script>
+const btn = document.getElementById('scrolltop');
+window.addEventListener('scroll',()=>{btn.style.display=window.scrollY>400?'flex':'none'});
+</script>
+</body>
+</html>
+HTMLEOF
+echo "File written: $(wc -c < /tmp/om_guide.html) bytes"
